@@ -50,5 +50,5 @@ def crawling():
         return []
 
 if __name__ == "__main__" :
-    # crawling()
+    crawling()
     print(time.ctime())
