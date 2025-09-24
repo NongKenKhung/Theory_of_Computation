@@ -56,11 +56,11 @@ async def query(query: str = Query(None, description="The name or regex pattern 
 async def read_item(request: Request, query: str = Query(None)):
     try:
         pokemon_list = crawling(query)
-        if not pokemon_list:
-            return RedirectResponse(url="/", status_code=302)
+        # if not pokemon_list:
+        #     return RedirectResponse(url="/", status_code=302)
 
         return templates.TemplateResponse(
-            "list_crawl.html", {"request": request, "data": pokemon_list}
+            "list_crawl.html", {"request": request, "data": pokemon_list, "query_text": query}
         )
     except Exception as e:
         return Response(status_code=500)
