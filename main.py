@@ -1,8 +1,9 @@
-from fastapi import FastAPI, APIRouter
+from fastapi import FastAPI, APIRouter, Query, Request
 from fastapi.staticfiles import StaticFiles
-from fastapi.responses import StreamingResponse,RedirectResponse
+from fastapi.responses import StreamingResponse,RedirectResponse, JSONResponse, HTMLResponse, Response
 from fastapi.templating import Jinja2Templates
 import pandas as pd
+from crawling import crawling
 
 app = FastAPI()
 templates = Jinja2Templates(directory="static/templates")
@@ -59,12 +60,19 @@ async def query(query: str = Query(None, description="The name or regex pattern 
 @app.get("/list-items", response_class=HTMLResponse)
 async def read_item(request: Request):
     try:
-        with open('pokemon_1.csv', 'r') as csv_file:
-            csv_reader = csv.reader(csv_file)
-            next(csv_reader) 
-            return templates.TemplateResponse(
-                "list_crawl.html", {"request": request, "data": csv_reader}
-            )
+        pokemon_list = crawling()
+        if not pokemon_list:
+            return RedirectResponse(url="/", status_code=302)
+        df = pd.DataFrame(
+            pokemon_list, 
+            columns["Number", "Name", "Type", "All", "HP", "Attack", "Defense", "Sp. Atk", "Sp. Def", "Speed", "image"]
+        )
+        # with open('pokemon_1.csv', 'r') as csv_file:
+        #     csv_reader = csv.reader(csv_file)
+        #     next(csv_reader) 
+        return templates.TemplateResponse(
+            "list_crawl.html", {"request": request, "data": csv_reader}
+        )
     except Exception as e:
         return Response(status_code=500)
 
