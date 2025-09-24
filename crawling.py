@@ -2,14 +2,16 @@ import requests
 import re
 import pprint
 import time
+import csv
 
-# with open("pokemon.csv", mode="w", newline="", encoding="utf-8") as file:
-#                 writer = csv.writer(file)
-#                 # เขียน header
-#                 writer.writerow(["Number", "Name", "Type", "HP", "Attack", "Defense", "Sp. Atk", "Sp. Def", "Speed", "image"])
-                
-#                 for p in pokemon_list:
-#                     writer.writerow([p["number"], p["name"], p["type"], *p["stats"], p["image"]])
+def write_to_csv(filepath, pokemon_list):
+    with open(f"{filepath}", mode="w", newline="", encoding="utf-8") as file:
+        writer = csv.writer(file)
+        # เขียน header
+        writer.writerow(["Number", "Name", "Type", "All",  "HP", "Attack", "Defense", "Sp. Atk", "Sp. Def", "Speed", "image"])
+        
+        for p in pokemon_list:
+            writer.writerow([p["number"], p["name"], p["type"], *p["stats"], p["image"]])
 
 def crawling():
     base_path = "https://pokemondb.net/pokedex/"
@@ -50,5 +52,6 @@ def crawling():
         return []
 
 if __name__ == "__main__" :
-    # crawling()
+    pokemon_list = crawling()
+    write_to_csv('pokemon_1.csv', pokemon_list)
     print(time.ctime())
