@@ -11,9 +11,9 @@ def write_to_csv(filepath, pokemon_list):
         writer.writerow(["Number", "Name", "Type", "All",  "HP", "Attack", "Defense", "Sp. Atk", "Sp. Def", "Speed", "image"])
         
         for p in pokemon_list:
-            writer.writerow([p["number"], p["name"], p["type"], *p["stats"], p["image"]])
+            writer.writerow([p["Number"], p["Name"], p["image"], p["Type"], p["All"], p["HP"], p["Attack"], p["Defense"], p["Sp. Atk"], p["Sp. Def"], p["Speed"]])
 
-def crawling(query:str = None):
+def crawling(query: str = None):
     base_path = "https://pokemondb.net/pokedex/"
     start_path = "all"
     response = requests.get(f'{base_path}{start_path}')
@@ -37,6 +37,8 @@ def crawling(query:str = None):
                     image_match = re.search(r'<picture.*?>.*?<img[^>]+src="([^"]+)"', cols[0], re.DOTALL)
                     image = re.sub(r'/sprites/scarlet-violet/icon/(.*)\.png',r'/artwork/large/\1.jpg',image_match.group(1))
                     name = name_match.group(1) if name_match else ''
+                    if query and not re.search(query, name, re.IGNORECASE):
+                        continue
                     type_text = re.sub(r'<.*?>', '', cols[2]).strip()
                     stats = [re.sub(r'<.*?>', '', c).strip() for c in cols[3:]]
                     pokemon_list.append({
@@ -52,12 +54,12 @@ def crawling(query:str = None):
                         "Sp. Def":stats[5],
                         "Speed":stats[6], 
                     })
-            pprint.pp(pokemon_list)
+            # pprint.pp(pokemon_list)
             return pokemon_list
     else:
         return []
 
 if __name__ == "__main__" :
     pokemon_list = crawling()
-    write_to_csv('pokemon_1.csv', pokemon_list)
+    write_to_csv('pokemon_2.csv', pokemon_list)
     print(time.ctime())

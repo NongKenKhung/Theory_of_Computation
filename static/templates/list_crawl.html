@@ -18,6 +18,12 @@
         justify-content: center;
         padding: 20px;
       }
+        .center-container {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 25px;
+        }
       h1 {
         font-family: "Jersey 10", Arial, sans-serif;
         font-size: 50px;
@@ -61,10 +67,12 @@
   </head>
   <body>
     <h1>Pokedex</h1>
-    <form action="/export-csv">
-      <input type="submit" value="Export as CSV" />
+    <div class="center-container">
+    <form action="/list-items" method="get">
+        <input type="text" id="searchInput" name="query" placeholder="Search with Regex" />
+        <button class="style_button" type="submit">Query</button>
     </form>
-    <input type="text" id="searchInput" placeholder="Search" />
+    </div>
     <br />
     <div class="card_container">
       {% for pokemon in data %}
@@ -73,7 +81,7 @@
         <h2>#{{ pokemon.Number }} {{ pokemon.Name }}</h2>
         <p>
           <strong>Type:</strong>
-          {% for type in pokemon.type %}
+          {% for type in pokemon.Type %}
           <span class="type-badge">{{ type }}</span>
           {% endfor %}
         </p>
@@ -88,7 +96,7 @@
       </div>
       {% endfor %}
     </div>
-    <script>
+    <!-- <script>
       const search_bar = document.getElementById("searchInput");
       search_bar.addEventListener("keyup", send_query);
 
@@ -107,6 +115,6 @@
           });
         }
       }
-    </script>
+    </script> -->
   </body>
 </html>

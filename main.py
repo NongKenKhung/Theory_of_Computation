@@ -29,18 +29,20 @@ async def get_pokemon():
     except Exception as e:
         return RedirectResponse(url="/", status_code=302)
 
-def get_filtered_data(query: str):
+def get_filtered_data(data: list, query: str):
     results = []
+    print(query)
     try:
-        # with open('pokemon_1.csv', mode='r', encoding='utf-8') as file:
-        #     reader = csv.DictReader(file)
-        #     print(query)
-        #     pattern = re.compile(query, re.IGNORECASE)
-        #     for row in reader:
-        #         if pattern.search(row['Name']):
-        #             results.ap1pend(row)
+        pattern = re.compile(query, re.IGNORECASE)        
+        for row in data:
+            if 'Name' in row and pattern.search(row['Name']):
+                results.append(row)
         return results
-    except FileNotFoundError:
+    except re.error as e:
+        print(f"Invalid regex query: {e}")
+        return []
+    except Exception as e:
+        print(f"An unexpected error occurred: {e}")
         return []
 
 
@@ -51,11 +53,11 @@ async def query(query: str = Query(None, description="The name or regex pattern 
 
 
 @app.get("/list-items", response_class=HTMLResponse)
-async def read_item(request: Request):
+async def read_item(request: Request, query: str = Query(None)):
     try:
-        pokemon_list = crawling()
+        pokemon_list = crawling(query)
         if not pokemon_list:
-            return RedirectResponse(url="/", status_code=302)        
+            return RedirectResponse(url="/", status_code=302)
 
         return templates.TemplateResponse(
             "list_crawl.html", {"request": request, "data": pokemon_list}
