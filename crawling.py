@@ -13,7 +13,7 @@ def write_to_csv(filepath, pokemon_list):
         for p in pokemon_list:
             writer.writerow([p["number"], p["name"], p["type"], *p["stats"], p["image"]])
 
-def crawling():
+def crawling(query:str = None):
     base_path = "https://pokemondb.net/pokedex/"
     start_path = "all"
     response = requests.get(f'{base_path}{start_path}')
@@ -40,11 +40,17 @@ def crawling():
                     type_text = re.sub(r'<.*?>', '', cols[2]).strip()
                     stats = [re.sub(r'<.*?>', '', c).strip() for c in cols[3:]]
                     pokemon_list.append({
-                        "number": number,
-                        "name": name,
+                        "Number": number,
+                        "Name": name,
                         "image": image,
-                        "type": type_text.split(),
-                        "stats": stats
+                        "Type": type_text.split(),
+                        "All":stats[0], 
+                        "HP":stats[1], 
+                        "Attack":stats[2], 
+                        "Defense":stats[3], 
+                        "Sp. Atk":stats[4], 
+                        "Sp. Def":stats[5],
+                        "Speed":stats[6], 
                     })
             pprint.pp(pokemon_list)
             return pokemon_list

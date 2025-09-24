@@ -18,7 +18,8 @@ async def get_pokemon():
             return RedirectResponse(url="/", status_code=302)
         df = pd.DataFrame(
             pokemon_list, 
-            columns=["number", "name", "image", "type","stats"]
+            # columns=["number", "name", "image", "type","stats"]
+            columns=["Number", "Name", "Type", "All", "HP", "Attack", "Defense", "Sp. Atk", "Sp. Def", "Speed", "image"]
         )
         return StreamingResponse(
             iter([df.to_csv(index=False)]),
@@ -31,25 +32,17 @@ async def get_pokemon():
 def get_filtered_data(query: str):
     results = []
     try:
-        with open('pokemon_1.csv', mode='r', encoding='utf-8') as file:
-            reader = csv.DictReader(file)
-            print(query)
-            pattern = re.compile(query, re.IGNORECASE)
-            for row in reader:
-                if pattern.search(row['Name']):
-                    results.ap1pend(row)
+        # with open('pokemon_1.csv', mode='r', encoding='utf-8') as file:
+        #     reader = csv.DictReader(file)
+        #     print(query)
+        #     pattern = re.compile(query, re.IGNORECASE)
+        #     for row in reader:
+        #         if pattern.search(row['Name']):
+        #             results.ap1pend(row)
+        return results
     except FileNotFoundError:
         return []
-    return results
 
-
-@app.get("/export-csv")
-async def download_file():
-    file_path = f"pokemon.csv" # Replace with your actual file path
-    if os.path.exists(file_path):
-        return FileResponse(file_path, media_type="application/octet-stream", filename=file_path)
-    else:
-        return {"message": "File not found"}
 
 @app.get("/get-query", response_class=JSONResponse)
 async def query(query: str = Query(None, description="The name or regex pattern to search for")):
@@ -62,16 +55,10 @@ async def read_item(request: Request):
     try:
         pokemon_list = crawling()
         if not pokemon_list:
-            return RedirectResponse(url="/", status_code=302)
-        df = pd.DataFrame(
-            pokemon_list, 
-            columns["Number", "Name", "Type", "All", "HP", "Attack", "Defense", "Sp. Atk", "Sp. Def", "Speed", "image"]
-        )
-        # with open('pokemon_1.csv', 'r') as csv_file:
-        #     csv_reader = csv.reader(csv_file)
-        #     next(csv_reader) 
+            return RedirectResponse(url="/", status_code=302)        
+
         return templates.TemplateResponse(
-            "list_crawl.html", {"request": request, "data": csv_reader}
+            "list_crawl.html", {"request": request, "data": pokemon_list}
         )
     except Exception as e:
         return Response(status_code=500)

@@ -1,106 +1,112 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Jersey+10&display=swap" rel="stylesheet">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Jersey+10&display=swap"
+      rel="stylesheet"
+    />
     <title>Pokedex</title>
     <style>
-        .card_container {
-            font-family: "Jersey 10", Arial, sans-serif;
-            background: #f5f5f5;
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: center;
-            padding: 20px;
-        }
-        h1 {
-            font-family: "Jersey 10", Arial, sans-serif;
-            font-size: 50px;
-            margin: 0 auto;
-            text-align: center
-        }
-        .card {
-            background: white;
-            border-radius: 12px;
-            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
-            margin: 15px;
-            width: 250px;
-            text-align: center;
-            overflow: hidden;
-            transition: transform 0.2s;
-        }
-        .card:hover {
-            transform: scale(1.05);
-        }
-        .card img {
-            width: 100%;
-            height: 180px;
-            object-fit: cover;
-        }
-        .card h2 {
-            margin: 10px 0 5px;
-            font-size: 26px;
-        }
-        .card p {
-            margin: 3px 0;
-            font-size: 18px;
-        }
-        .stats {
-            text-align: left;
-            padding: 0 15px 15px;
-        }
-        .stats p {
-            margin: 2px 0;
-        }
+      .card_container {
+        font-family: "Jersey 10", Arial, sans-serif;
+        background: #f5f5f5;
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        padding: 20px;
+      }
+      h1 {
+        font-family: "Jersey 10", Arial, sans-serif;
+        font-size: 50px;
+        margin: 0 auto;
+        text-align: center;
+      }
+      .card {
+        background: white;
+        border-radius: 12px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        margin: 15px;
+        width: 250px;
+        text-align: center;
+        overflow: hidden;
+        transition: transform 0.2s;
+      }
+      .card:hover {
+        transform: scale(1.05);
+      }
+      .card img {
+        width: 100%;
+        height: 180px;
+        object-fit: cover;
+      }
+      .card h2 {
+        margin: 10px 0 5px;
+        font-size: 26px;
+      }
+      .card p {
+        margin: 3px 0;
+        font-size: 18px;
+      }
+      .stats {
+        text-align: left;
+        padding: 0 15px 15px;
+      }
+      .stats p {
+        margin: 2px 0;
+      }
     </style>
-</head>
-<body>
+  </head>
+  <body>
     <h1>Pokedex</h1>
     <form action="/export-csv">
-        <input type="submit" value="Export as CSV" />
+      <input type="submit" value="Export as CSV" />
     </form>
     <input type="text" id="searchInput" placeholder="Search" />
-    <br>
+    <br />
     <div class="card_container">
-        {% for row in data %}
-        <div class="card">
-            <img src="{{ row[9] }}" alt="{{ row[1] }}">
-            <h2>#{{ row[0] }} {{ row[1] }}</h2>
-            <p><strong>Type:</strong> {{ row[2] }}</p>
-            <div class="stats">
-                <p><strong>HP:</strong> {{ row[3] }}</p>
-                <p><strong>Attack:</strong> {{ row[4] }}</p>
-                <p><strong>Defense:</strong> {{ row[5] }}</p>
-                <p><strong>Sp. Atk:</strong> {{ row[6] }}</p>
-                <p><strong>Sp. Def:</strong> {{ row[7] }}</p>
-                <p><strong>Speed:</strong> {{ row[8] }}</p>
-            </div>
+      {% for pokemon in data %}
+      <div class="card" data-name="{{ pokemon.name|lower }}">
+        <img src="{{ pokemon.image }}" alt="{{ pokemon.name }}" />
+        <h2>#{{ pokemon.Number }} {{ pokemon.Name }}</h2>
+        <p>
+          <strong>Type:</strong>
+          {% for type in pokemon.type %}
+          <span class="type-badge">{{ type }}</span>
+          {% endfor %}
+        </p>
+        <div class="stats">
+          <p><strong>HP:</strong> {{ pokemon.HP }}</p>
+          <p><strong>Attack:</strong> {{ pokemon.Attack }}</p>
+          <p><strong>Defense:</strong> {{ pokemon.Defense }}</p>
+          <p><strong>Sp. Atk:</strong> {{ pokemon['Sp. Atk'] }}</p>
+          <p><strong>Sp. Def:</strong> {{ pokemon['Sp. Def'] }}</p>
+          <p><strong>Speed:</strong> {{ pokemon.Speed }}</p>
         </div>
-        {% endfor %}
+      </div>
+      {% endfor %}
     </div>
     <script>
-        const search_bar = document.getElementById("searchInput");
-        search_bar.addEventListener("keyup", send_query);
+      const search_bar = document.getElementById("searchInput");
+      search_bar.addEventListener("keyup", send_query);
 
-        function send_query(e) {
-            var query_input = search_bar.value;
-            fetch('get-query?query=' + query_input)
+      function send_query(e) {
+        var query_input = search_bar.value;
+        fetch("get-query?query=" + query_input);
+      }
+
+      function renderData(data) {
+        const container = document.getElementById("app-container");
+        if (data && container) {
+          data.forEach((item) => {
+            const div = document.createElement("div");
+            div.textContent = item.name;
+            container.appendChild(div);
+          });
         }
-
-        function renderData(data) {
-            const container = document.getElementById('app-container');
-            if (data && container) {
-                data.forEach(item => {
-                    const div = document.createElement('div');
-                    div.textContent = item.name;
-                    container.appendChild(div);
-                });
-            }
-        }
-
-        fetchData().then(data => renderData(data));
+      }
     </script>
-</body>
+  </body>
 </html>
