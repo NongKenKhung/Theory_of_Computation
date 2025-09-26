@@ -1,6 +1,5 @@
 import requests
 import re
-import pprint
 import time
 import csv
 
@@ -54,7 +53,6 @@ def crawling(query: str = None):
                         "Sp. Def":stats[5],
                         "Speed":stats[6], 
                     })
-            # pprint.pp(pokemon_list)
             return pokemon_list
     else:
         return []
