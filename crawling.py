@@ -140,8 +140,9 @@ def extract_div_block(soruce: str, start_id: str):
     return None
    
 if __name__ == "__main__" :
-    pokemon_list = crawling()
-    write_to_csv('pokemon_2.csv', pokemon_list)
+    print()
+    # pokemon_list = crawling()
+    # write_to_csv('pokemon_2.csv', pokemon_list)
 
     # pokemon_list = crawling("Venusaur")
     # print(pokemon_list)
