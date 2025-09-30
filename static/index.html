@@ -3,12 +3,33 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>POKEMON</title>
+    <title>PokéCrawler</title>
     <link rel="stylesheet" href="./css/app.css" />
   </head>
   <body>
-    <a href="/api/download/pokemon">download</a>
-    <a href="list-items">pokemon list</a>
-    <script src="./js/app.js"></script>
+    <header class="header">
+      <h1>PokéCrawler</h1>
+    </header>
+
+    <main class="main-content">
+      <div class="greeting">Welcome, Trainer!</div>
+      <div class="random-pokemon">
+        <img
+          src="https://img.pokemondb.net/artwork/large/pikachu.jpg"
+          alt="Random Pokémon"
+        />
+      </div>
+      <p>
+        Welcome to PokéCrawler! Quickly browse, search, and download your
+        favorite Pokémon data as CSV.
+      </p>
+      <div class="button-container">
+        <a href="/api/download/pokemon">Download CSV</a>
+        <a href="list-items">View Pokémon List</a>
+        <a href="/user-list">User List</a>
+      </div>
+    </main>
+
+    <footer class="footer">&copy; 2025 PokéCrawler</footer>
   </body>
 </html>

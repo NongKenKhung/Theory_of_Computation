@@ -38,5 +38,9 @@ async def read_item(request: Request, query: str = Query(None)):
     except Exception as e:
         return Response(status_code=500)
 
+@app.get("/user-list", response_class=HTMLResponse)
+async def user_list(request:Request):
+    return templates.TemplateResponse('user_list.html',{"request":request})
+
 app.include_router(api_router, prefix="/api")
 app.mount("/", StaticFiles(directory="static", html=True), name="static")

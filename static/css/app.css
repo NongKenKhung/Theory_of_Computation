@@ -1,0 +1,112 @@
+/* General Layout */
+body {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh; /* Ensure the body takes up the full viewport height */
+  margin: 0; /* Remove default margin */
+}
+
+.header {
+  text-align: center; /* Center-align the header text */
+  padding: 1.5rem 1rem; /* Add padding for better spacing */
+  background-color: #f5f5f5; /* Optional: Add a light background color */
+  margin-bottom: 1rem; /* Add space below the header */
+}
+
+.header h1 {
+  font-size: 2.5rem; /* Increase font size for better visibility */
+  margin: 0; /* Remove default margin */
+  color: #3d7dca; /* Pokémon-themed blue color */
+}
+
+/* Main Content */
+.main-content {
+  flex: 1; /* Push the footer to the bottom by taking up remaining space */
+  text-align: center;
+  padding: 2rem 1rem; /* Reduced padding for better spacing */
+}
+
+.main-content p {
+  font-size: 1.1rem;
+  max-width: 600px;
+  margin: 1rem auto; /* Added margin for better spacing */
+  line-height: 1.6;
+  color: #333;
+  font-weight: 400;
+}
+
+/* Greeting Section */
+.greeting {
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: #3d7dca; /* Pokémon water blue */
+  margin-bottom: 1.5rem; /* Increased spacing below greeting */
+}
+
+/* Random Pokémon Image */
+.random-pokemon {
+  margin: 2rem auto;
+  text-align: center;
+}
+
+.random-pokemon img {
+  max-width: 300px;
+  width: 100%;
+  border-radius: 12px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  transition: transform 0.3s ease-in-out;
+}
+
+.random-pokemon img:hover {
+  transform: scale(1.05);
+}
+
+/* Button Container */
+.button-container {
+  margin-top: 2.5rem; /* Increased spacing above buttons */
+}
+
+.button-container a {
+  display: inline-block;
+  margin: 0 10px; /* Reduced margin between buttons */
+  padding: 10px 20px;
+  background: #3d7dca; /* Pokémon water blue */
+  color: white;
+  border: none;
+  border-radius: 12px;
+  font-size: 16px;
+  font-family: "Jersey 10", Arial, sans-serif;
+  text-decoration: none;
+  cursor: pointer;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+  transition: all 0.2s ease-in-out; /* Smooth transition */
+}
+
+.button-container a:hover {
+  background: #2c5aa0; /* Darker blue on hover */
+  transform: translateY(-2px); /* Lift effect */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15); /* Stronger shadow on hover */
+}
+
+/* Footer */
+.footer {
+  text-align: center;
+  font-size: 0.85rem;
+  color: #666;
+  font-weight: 300;
+  padding: 1rem 0;
+  margin-top: auto; /* Push the footer to the bottom */
+}
+
+/* Responsive Design */
+@media (max-width: 600px) {
+  .button-container a {
+    display: block;
+    margin: 10px auto;
+    width: 80%;
+  }
+
+  .main-content p {
+    font-size: 1rem;
+  }
+}

@@ -1,0 +1,42 @@
+/* User List Styling */
+.user-list {
+  max-width: 600px;
+  margin: 0 auto; /* Center the user list */
+  padding: 1rem;
+  background: #f5f5f5; /* Light background for the list */
+  border-radius: 12px; /* Rounded corners */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+  text-align: center; /* Center-align the text */
+}
+
+.user-list p {
+  font-size: 1.1rem;
+  color: #333;
+  margin: 0.5rem 0; /* Add spacing between user entries */
+  font-family: "Jersey 10", Arial, sans-serif;
+}
+
+/* Back Button Styling */
+.back-button {
+  position: absolute;
+  top: 1.2rem;
+  left: 1.2rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #3d7dca; /* Pokémon water blue */
+  padding: 5px 10px;
+  color: white;
+  border: none;
+  border-radius: 10px; /* Circular button */
+  font-size: 20px;
+  text-decoration: none;
+  cursor: pointer;
+  transition: all 0.2s ease-in-out; /* Smooth transition */
+}
+
+.back-button:hover {
+  background: #2c5aa0; /* Darker blue on hover */
+  transform: translateY(-2px); /* Lift effect */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15); /* Stronger shadow on hover */
+}
