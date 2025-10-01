@@ -52,12 +52,7 @@ def crawling(query: str = None):
                     if query and not re.search(query, name, re.IGNORECASE):
                         continue
                     description_match = re.search(r'<small.*?>(.*?)</small>', cols[1], re.DOTALL)
-                    description = description_match.group(1) if description_match else " "
-                    image_match = re.search(r'<picture.*?>.*?<img[^>]+src="([^"]+)"', cols[0], re.DOTALL)
-                    image = re.sub(r'/sprites/scarlet-violet/icon/(.*)\.png',r'/artwork/large/\1.jpg',image_match.group(1))
-                    res = requests.get(image)
-                    if res.status_code == 404:
-                        image = image_match.group(1)
+                    description = description_match.group(1) if description_match else " " 
                     type_text = re.sub(r'<.*?>', '', cols[2]).strip()
                     stats = [re.sub(r'<.*?>', '', c).strip() for c in cols[3:]]
 
@@ -67,7 +62,7 @@ def crawling(query: str = None):
                         "Number": number,
                         "Name": name,
                         "Description": description,
-                        "image": image,
+                        "image": detail["Image"],
                         "Type": type_text.split(),
                         "Species": detail["Species"],
                         "Height": detail["Height"],
@@ -94,10 +89,14 @@ def call_detail_pokemon(name: str,description: str):
         new_path = re.search(r'<div class="sv-tabs-tab-list".*?>(.*?)</div>',source,re.DOTALL)
         new_new_path = re.findall(r'<a.*?href="#([^"]+)">(.*?)</a>',new_path.group(1),re.DOTALL)
         path_match = {}
+
         for path,n in new_new_path:
             path_match[n] = path
 
         block = extract_div_block(source,path_match[name if description == " " else description])
+        image_match = re.search(r'<p>.*?href="([^"]+)+".*?>',block,re.DOTALL)
+        image = image_match.group(1)
+
 
         data = re.search(r'<div.*?Pokédex data.*?(<tbody>.*?</tbody>).*?</div>',block,re.DOTALL)
         cols = re.findall(r'<td>.*?</td>',data.group(1),re.DOTALL)
@@ -107,6 +106,7 @@ def call_detail_pokemon(name: str,description: str):
         weight   = html.unescape(cols_clean[4]).replace('\xa0', ' ')
 
         pokemon = {
+            "Image": image,
             "Species": species,
             "Height": height,
             "Weight": weight,
@@ -115,7 +115,12 @@ def call_detail_pokemon(name: str,description: str):
         return pokemon
 
     else:
-        return []
+        return {
+            "Image": None,
+            "Species": None,
+            "Height": None,
+            "Weight": None,
+        }
 
 def extract_div_block(soruce: str, start_id: str):
     open_tag_pattern = re.compile(rf'<div[^>]*id="{re.escape(start_id)}"[^>]*>', re.IGNORECASE)
@@ -144,10 +149,10 @@ def extract_div_block(soruce: str, start_id: str):
    
 if __name__ == "__main__" :
     print()
-    # pokemon_list = crawling()
+    pokemon_list = crawling()
     # write_to_csv('pokemon_2.csv', pokemon_list)
 
-    pokemon_list = crawling("Venusaur")
+    # pokemon_list = crawling("Venusaur")
     print(pokemon_list,sep='\n')
     # write_to_csv('pokemon_2.csv', pokemon_list)
 
