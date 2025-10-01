@@ -55,9 +55,6 @@ def crawling(query: str = None):
                     description = description_match.group(1) if description_match else " " 
                     image_match = re.search(r'<picture.*?>.*?<img[^>]+src="([^"]+)"', cols[0], re.DOTALL)
                     image = re.sub(r'/sprites/scarlet-violet/icon/(.*)\.png',r'/artwork/large/\1.jpg',image_match.group(1))
-                    res = requests.get(image)
-                    if res.status_code == 404:
-                        image = image_match.group(1)
                     type_text = re.sub(r'<.*?>', '', cols[2]).strip()
                     stats = [re.sub(r'<.*?>', '', c).strip() for c in cols[3:]]
 
