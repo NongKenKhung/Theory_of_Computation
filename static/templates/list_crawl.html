@@ -12,45 +12,47 @@
     <link rel="stylesheet" href="../css/list_crawl.css" />
   </head>
   <body>
-    <h1>Pokedex</h1>
-    <div class="center-container">
-    <form action="/list-items" method="get">
-      <input type="text" id="searchInput" name="query" placeholder="Search with Regex" />
-      <button class="style_button" type="submit">Query</button>
-    </form>
-    </div>
-    <h2>
-    {% if query_text %}
-      Searched for: {{ query_text }}
-    {% else %}
-      Listing all result
-    {% endif %}
-    </h2>
-    <br />
+    <nav>
+      <h1>Pokedex</h1>
+      <div class="center-container">
+        <form action="/list-items" method="get">
+          <input
+            type="text"
+            id="searchInput"
+            name="query"
+            placeholder="Search with Regex"
+          />
+          <button class="style_button" type="submit">Query</button>
+        </form>
+      </div>
+      <h2>
+        {% if query_text %} Searched for: {{ query_text }} {% else %} Listing
+        all result {% endif %}
+      </h2>
+      <br />
+    </nav>
     <div class="card_container">
-      {% if data %}
-        {% for pokemon in data %}
-        <div class="card" data-name="{{ pokemon.name|lower }}">
-          <img src="{{ pokemon.image }}" alt="{{ pokemon.name }}" />
-          <h2>#{{ pokemon.Number }} {{ pokemon.Name }}</h2>
-          <p>
-            <strong>Type:</strong>
-            {% for type in pokemon.Type %}
-            <span class="type-badge">{{ type }}</span>
-            {% endfor %}
-          </p>
-          <div class="stats">
-            <p><strong>HP:</strong> {{ pokemon.HP }}</p>
-            <p><strong>Attack:</strong> {{ pokemon.Attack }}</p>
-            <p><strong>Defense:</strong> {{ pokemon.Defense }}</p>
-            <p><strong>Sp. Atk:</strong> {{ pokemon['Sp. Atk'] }}</p>
-            <p><strong>Sp. Def:</strong> {{ pokemon['Sp. Def'] }}</p>
-            <p><strong>Speed:</strong> {{ pokemon.Speed }}</p>
-          </div>
+      {% if data %} {% for pokemon in data %}
+      <div class="card" data-name="{{ pokemon.name|lower }}">
+        <img src="{{ pokemon.image }}" alt="{{ pokemon.name }}" />
+        <h2>#{{ pokemon.Number }} {{ pokemon.Name }}</h2>
+        <p>
+          <strong>Type:</strong>
+          {% for type in pokemon.Type %}
+          <span class="type-badge">{{ type }}</span>
+          {% endfor %}
+        </p>
+        <div class="stats">
+          <p><strong>HP:</strong> {{ pokemon.HP }}</p>
+          <p><strong>Attack:</strong> {{ pokemon.Attack }}</p>
+          <p><strong>Defense:</strong> {{ pokemon.Defense }}</p>
+          <p><strong>Sp. Atk:</strong> {{ pokemon['Sp. Atk'] }}</p>
+          <p><strong>Sp. Def:</strong> {{ pokemon['Sp. Def'] }}</p>
+          <p><strong>Speed:</strong> {{ pokemon.Speed }}</p>
         </div>
-        {% endfor %}
-      {% else %}
-        <h2>No Result</h2>
+      </div>
+      {% endfor %} {% else %}
+      <h2>No Result</h2>
       {% endif %}
     </div>
   </body>
