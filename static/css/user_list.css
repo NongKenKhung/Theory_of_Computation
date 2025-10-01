@@ -1,3 +1,15 @@
+/* Theme Colors */
+:root {
+  --primary-color: #2c3e50;
+  --secondary-color: #ffe562; /* Updated button color */
+  --accent-color: #e74c3c;
+  --background-color: #ecf0f1;
+  --text-color: #2c3e50;
+  --border-color: #bdc3c7;
+  --hover-color: #ef970b; /* Updated hover color */
+  --navbar-footer-color: #5e727d; /* Added navbar/footer color */
+}
+
 /* User List Styling */
 .user-list {
   max-width: 600px;
@@ -21,22 +33,31 @@
   position: absolute;
   top: 1.2rem;
   left: 1.2rem;
-  display: flex;
+  display: inline-block;
   align-items: center;
   justify-content: center;
-  background: #3d7dca; /* Pokémon water blue */
-  padding: 5px 10px;
-  color: white;
-  border: none;
-  border-radius: 10px; /* Circular button */
-  font-size: 20px;
+  padding: 12px 24px;
+  background-color: var(--secondary-color);
+  color: var(--text-color); /* Changed to ensure contrast with yellow button */
   text-decoration: none;
+  border: none;
+  border-radius: 8px; /* Circular button */
+  font-size: 20px;
+  font-weight: 500;
   cursor: pointer;
-  transition: all 0.2s ease-in-out; /* Smooth transition */
+  transition: all 0.3s ease; /* Smooth transition */
 }
 
 .back-button:hover {
-  background: #2c5aa0; /* Darker blue on hover */
+  background-color: var(--hover-color);
   transform: translateY(-2px); /* Lift effect */
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15); /* Stronger shadow on hover */
+  box-shadow: 0 4px 12px rgba(239, 151, 11, 0.3); /* Updated shadow color */
+}
+
+/* Add navbar and footer styles */
+.navbar,
+.footer {
+  background-color: var(--navbar-footer-color);
+  color: white;
+  padding: 15px 0;
 }

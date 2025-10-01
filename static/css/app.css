@@ -1,112 +1,171 @@
+/* Theme Colors */
+:root {
+  --primary-color: #2c3e50;
+  --secondary-color: #ffe562; /* Updated button color */
+  --accent-color: #e74c3c;
+  --background-color: #ecf0f1;
+  --text-color: #2c3e50;
+  --border-color: #bdc3c7;
+  --hover-color: #ef970b; /* Updated hover color */
+  --navbar-footer-color: #5e727d; /* Added navbar/footer color */
+}
+
 /* General Layout */
 body {
   display: flex;
   flex-direction: column;
-  min-height: 100vh; /* Ensure the body takes up the full viewport height */
-  margin: 0; /* Remove default margin */
+  min-height: 100vh;
+  margin: 0;
+  background: #ffffff;
+  font-family: "Jersey 10", Arial, sans-serif;
 }
 
 .header {
-  text-align: center; /* Center-align the header text */
-  padding: 1.5rem 1rem; /* Add padding for better spacing */
-  background-color: #f5f5f5; /* Optional: Add a light background color */
-  margin-bottom: 1rem; /* Add space below the header */
+  text-align: center;
+  padding: 1.5rem 1rem;
+  background-color: #5e727d;
+  margin-bottom: 1rem;
 }
 
 .header h1 {
-  font-size: 2.5rem; /* Increase font size for better visibility */
-  margin: 0; /* Remove default margin */
-  color: #3d7dca; /* Pokémon-themed blue color */
+  font-size: 2.5rem;
+  margin: 0;
+  color: #ffe562;
 }
 
 /* Main Content */
 .main-content {
-  flex: 1; /* Push the footer to the bottom by taking up remaining space */
+  flex: 1;
   text-align: center;
-  padding: 2rem 1rem; /* Reduced padding for better spacing */
+  padding: 2rem 1rem;
 }
 
 .main-content p {
-  font-size: 1.1rem;
-  max-width: 600px;
-  margin: 1rem auto; /* Added margin for better spacing */
-  line-height: 1.6;
+  font-size: 1.2rem;
   color: #333;
-  font-weight: 400;
+  margin: 1rem auto;
+  max-width: 600px;
 }
 
 /* Greeting Section */
 .greeting {
-  font-size: 1.5rem;
+  font-size: 2rem;
   font-weight: bold;
-  color: #3d7dca; /* Pokémon water blue */
-  margin-bottom: 1.5rem; /* Increased spacing below greeting */
+  color: #5e727d;
+  margin-bottom: 1rem;
 }
 
 /* Random Pokémon Image */
 .random-pokemon {
   margin: 2rem auto;
-  text-align: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
-.random-pokemon img {
+.random-pokemon svg {
   max-width: 300px;
-  width: 100%;
-  border-radius: 12px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-  transition: transform 0.3s ease-in-out;
+  height: auto;
 }
 
-.random-pokemon img:hover {
+/* SVG Styling */
+.newsletter-pikachu--mp9x8 {
+  max-width: 300px;
+  height: auto;
+  margin: 2rem auto;
+  display: block;
+  transition: transform 0.3s ease;
+}
+
+.newsletter-pikachu--mp9x8:hover {
   transform: scale(1.05);
 }
 
 /* Button Container */
 .button-container {
-  margin-top: 2.5rem; /* Increased spacing above buttons */
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  align-items: center;
+  margin-top: 2rem;
 }
 
 .button-container a {
-  display: inline-block;
-  margin: 0 10px; /* Reduced margin between buttons */
-  padding: 10px 20px;
-  background: #3d7dca; /* Pokémon water blue */
-  color: white;
-  border: none;
+  background: #ffe562;
+  color: #333;
+  padding: 1rem 2rem;
   border-radius: 12px;
-  font-size: 16px;
-  font-family: "Jersey 10", Arial, sans-serif;
   text-decoration: none;
-  cursor: pointer;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Subtle shadow */
-  transition: all 0.2s ease-in-out; /* Smooth transition */
+  font-size: 1.2rem;
+  font-weight: bold;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  min-width: 250px;
 }
 
 .button-container a:hover {
-  background: #2c5aa0; /* Darker blue on hover */
-  transform: translateY(-2px); /* Lift effect */
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15); /* Stronger shadow on hover */
+  background: #ef970b;
+  color: white;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+}
+
+/* Button Class */
+.btn {
+  display: block;
+  padding: 15px 30px;
+  background-color: var(--secondary-color);
+  color: var(--text-color); /* Changed to ensure contrast with yellow button */
+  text-decoration: none;
+  text-align: center;
+  border-radius: 8px;
+  font-size: 18px;
+  font-weight: 500;
+  transition: all 0.3s ease;
+  border: none;
+  cursor: pointer;
+}
+
+.btn:hover {
+  background-color: var(--hover-color);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(239, 151, 11, 0.3); /* Updated shadow color */
 }
 
 /* Footer */
 .footer {
+  background-color: #5e727d;
+  color: white;
   text-align: center;
-  font-size: 0.85rem;
-  color: #666;
-  font-weight: 300;
-  padding: 1rem 0;
-  margin-top: auto; /* Push the footer to the bottom */
+  padding: 1rem;
+  margin-top: auto;
+}
+
+/* Add navbar and footer styles */
+.navbar,
+.footer {
+  background-color: var(--navbar-footer-color);
+  color: white;
+  padding: 15px 0;
 }
 
 /* Responsive Design */
 @media (max-width: 600px) {
-  .button-container a {
-    display: block;
-    margin: 10px auto;
-    width: 80%;
+  .header h1 {
+    font-size: 2rem;
   }
 
-  .main-content p {
+  .greeting {
+    font-size: 1.5rem;
+  }
+
+  .button-container a {
     font-size: 1rem;
+    padding: 0.8rem 1.5rem;
+    min-width: 200px;
+  }
+
+  .newsletter-pikachu--mp9x8 {
+    max-width: 200px;
   }
 }
