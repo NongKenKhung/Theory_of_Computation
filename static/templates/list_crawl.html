@@ -12,25 +12,24 @@
     <link rel="stylesheet" href="../css/list_crawl.css" />
   </head>
   <body>
-    <nav>
-      <a href="../index.html" class="back-button"></a>
-      <h1>Pokedex</h1>
-      <div class="center-container">
-        <form action="/list-items" method="get">
-          <input
-            type="text"
-            id="searchInput"
-            name="query"
-            placeholder="Search with Regex"
-          />
-          <button class="style_button" type="submit">Query</button>
-        </form>
-      </div>
-      <h2>
-        {% if query_text %} Searched for: {{ query_text }} {% else %} Listing
-        all result {% endif %}
-      </h2>
-    </nav>
+    <a href="/" class="back-button">&lt; back</a>
+    <h1>Pokedex</h1>
+    <div class="center-container">
+      <form action="/list-items" method="get">
+        <input
+          type="text"
+          id="searchInput"
+          name="query"
+          placeholder="Search with Regex"
+        />
+        <button class="style_button" type="submit">Query</button>
+      </form>
+    </div>
+    <h2>
+      {% if query_text %} Searched for: {{ query_text }} {% else %} Listing all
+      result {% endif %}
+    </h2>
+    <br />
     <div class="card_container">
       {% if data %} {% for pokemon in data %}
       <div
@@ -47,6 +46,42 @@
           {% endfor %}
         </p>
         <div class="stats">
+          <p><strong>HP:</strong> {{ pokemon.HP }}</p>
+          <p><strong>Attack:</strong> {{ pokemon.Attack }}</p>
+          <p><strong>Defense:</strong> {{ pokemon.Defense }}</p>
+          <p><strong>Sp. Atk:</strong> {{ pokemon['Sp. Atk'] }}</p>
+          <p><strong>Sp. Def:</strong> {{ pokemon['Sp. Def'] }}</p>
+          <p><strong>Speed:</strong> {{ pokemon.Speed }}</p>
+        </div>
+      </div>
+      <dialog id="modal-{{ pokemon.Number }}" class="pokemon-modal">
+        <button
+          class="close-button"
+          onclick="closeModal('{{ pokemon.Number }}')"
+        >
+          X
+        </button>
+        <img
+          src="{{ pokemon.image }}"
+          alt="{{ pokemon.name }}"
+          class="modal-image"
+        />
+        <h2>#{{ pokemon.Number }} {{ pokemon.Name }}</h2>
+        <p>{{ pokemon.Description }}</p>
+        <div class="modal-info">
+          <p><strong>Species:</strong> {{ pokemon.Species or 'N/A' }}</p>
+          <p><strong>Height:</strong> {{ pokemon.Height or 'N/A' }}</p>
+          <p><strong>Weight:</strong> {{ pokemon.Weight or 'N/A' }}</p>
+          <p>
+            <strong>Type:</strong>
+            <span class="type-container">
+              {% for type in pokemon.Type %}
+              <span class="type-badge">{{ type }}</span>
+              {% endfor %}
+            </span>
+          </p>
+        </div>
+        <div class="modal-stats">
           <p><strong>HP:</strong> {{ pokemon.HP or 'N/A' }}</p>
           <p><strong>Attack:</strong> {{ pokemon.Attack or 'N/A' }}</p>
           <p><strong>Defense:</strong> {{ pokemon.Defense or 'N/A' }}</p>
@@ -54,54 +89,11 @@
           <p><strong>Sp. Def:</strong> {{ pokemon['Sp. Def'] or 'N/A' }}</p>
           <p><strong>Speed:</strong> {{ pokemon.Speed or 'N/A' }}</p>
         </div>
-      </div>
-
-      <!-- Modal for each Pokémon -->
-      <dialog id="modal-{{ pokemon.Number }}" class="pokemon-modal">
-        <div class="modal-content">
-          <button
-            class="close-button"
-            onclick="closeModal('{{ pokemon.Number }}')"
-          >
-            X
-          </button>
-          <img
-            src="{{ pokemon.image }}"
-            alt="{{ pokemon.name }}"
-            class="modal-image"
-          />
-          <h2>#{{ pokemon.Number }} {{ pokemon.Name }}</h2>
-          <div class="modal-info">
-            <p><strong>Species:</strong> {{ pokemon.Species or 'N/A' }}</p>
-            <p><strong>Height:</strong> {{ pokemon.Height or 'N/A' }}</p>
-            <p><strong>Weight:</strong> {{ pokemon.Weight or 'N/A' }}</p>
-            <p>
-              <strong>Type:</strong>
-              {% for type in pokemon.Type %}
-              <span class="type-badge">{{ type }}</span>
-              {% endfor %}
-            </p>
-          </div>
-          <div class="modal-description">
-            <p>
-              <strong>Description:</strong> {{ pokemon.Description or 'N/A' }}
-            </p>
-          </div>
-          <div class="modal-stats">
-            <p><strong>HP:</strong> {{ pokemon.HP or 'N/A' }}</p>
-            <p><strong>Attack:</strong> {{ pokemon.Attack or 'N/A' }}</p>
-            <p><strong>Defense:</strong> {{ pokemon.Defense or 'N/A' }}</p>
-            <p><strong>Sp. Atk:</strong> {{ pokemon['Sp. Atk'] or 'N/A' }}</p>
-            <p><strong>Sp. Def:</strong> {{ pokemon['Sp. Def'] or 'N/A' }}</p>
-            <p><strong>Speed:</strong> {{ pokemon.Speed or 'N/A' }}</p>
-          </div>
-        </div>
       </dialog>
       {% endfor %} {% else %}
       <h2>No Result</h2>
       {% endif %}
     </div>
-
     <script>
       function openModal(id) {
         const modal = document.getElementById(`modal-${id}`);
