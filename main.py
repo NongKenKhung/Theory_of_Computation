@@ -30,7 +30,7 @@ async def get_pokemon():
 
 @app.get("/list-items", response_class=HTMLResponse)
 async def read_item(request: Request, query: str = Query(None)):
-    # try:
+    try:
         pokemon_list = crawling(query)
         # all key from pokemon_list
         # ['Number', 'Name', 'Description', 'image', 'Type', 'Species', 
@@ -38,8 +38,8 @@ async def read_item(request: Request, query: str = Query(None)):
         return templates.TemplateResponse(
             "list_crawl.html", {"request": request, "data": pokemon_list, "query_text": query}
         )
-    # except Exception as e:
-    #     return Response(status_code=500)
+    except Exception as e:
+        return Response(status_code=500)
 
 @app.get("/user-list", response_class=HTMLResponse)
 async def user_list(request:Request):
