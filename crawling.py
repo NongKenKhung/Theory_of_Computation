@@ -97,7 +97,6 @@ def call_detail_pokemon(name: str,description: str):
             tmp_str += i
 
     response = requests.get(f'{base_path}{tmp_str.lower()}')
-    print(f'{base_path}{tmp_str.lower()}')
     if response.status_code == 200:
         source = response.text
 
@@ -168,8 +167,8 @@ if __name__ == "__main__" :
     # pokemon_list = crawling()
     # write_to_csv('pokemon_2.csv', pokemon_list)
 
-    pokemon_list = crawling("Nidoran♀")
-    print(pokemon_list,sep='\n')
+    # pokemon_list = crawling("Nidoran♀")
+    # print(pokemon_list,sep='\n')
     # write_to_csv('pokemon_2.csv', pokemon_list)
 
     # pokemon = each_pokemon("Bulbasaur"," ")
