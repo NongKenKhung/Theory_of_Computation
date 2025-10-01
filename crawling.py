@@ -83,8 +83,22 @@ def crawling(query: str = None):
         return []
     
 def call_detail_pokemon(name: str,description: str):
-    response = requests.get(f'{base_path}{name.lower()}')
+    tmp_str = ""
+    for i in name:
+        if i == ' ' :
+            tmp_str += '-'
+        elif i == "'" or i == '.' or i == ':':
+            continue
+        elif i == 'é':
+            tmp_str += 'e'
+        elif i == '♂':
+            tmp_str += '-m'
+        elif i == '♀':
+            tmp_str += '-f'
+        else:
+            tmp_str += i
 
+    response = requests.get(f'{base_path}{tmp_str.lower()}')
     if response.status_code == 200:
         source = response.text
 
@@ -94,7 +108,7 @@ def call_detail_pokemon(name: str,description: str):
 
         for path,n in new_new_path:
             path_match[n] = path
-
+        print(new_new_path)
         block = extract_div_block(source,path_match[name if description == " " else description])
         image_match = re.search(r'<p>.*?href="([^"]+)+".*?>',block,re.DOTALL)
         image = image_match.group(1)
@@ -117,6 +131,7 @@ def call_detail_pokemon(name: str,description: str):
         return pokemon
 
     else:
+        print("sd")
         return {
             "Image":None,
             "Species": None,
@@ -151,11 +166,11 @@ def extract_div_block(soruce: str, start_id: str):
    
 if __name__ == "__main__" :
     print()
-    pokemon_list = crawling()
+    # pokemon_list = crawling()
     # write_to_csv('pokemon_2.csv', pokemon_list)
 
-    # pokemon_list = crawling("Venusaur")
-    print(pokemon_list,sep='\n')
+    # pokemon_list = crawling("Nidoran♀")
+    # print(pokemon_list,sep='\n')
     # write_to_csv('pokemon_2.csv', pokemon_list)
 
     # pokemon = each_pokemon("Bulbasaur"," ")
