@@ -32,11 +32,18 @@ async def get_pokemon():
 async def read_item(request: Request, query: str = Query(None)):
     try:
         pokemon_list = crawling(query)
+        # all key from pokemon_list
+        # ['Number', 'Name', 'Description', 'image', 'Type', 'Species', 
+        # 'Height', 'Weight', 'All', 'HP', 'Attack', 'Defense', 'Sp. Atk', 'Sp. Def', 'Speed']
         return templates.TemplateResponse(
             "list_crawl.html", {"request": request, "data": pokemon_list, "query_text": query}
         )
     except Exception as e:
         return Response(status_code=500)
+
+@app.get("/user-list", response_class=HTMLResponse)
+async def user_list(request:Request):
+    return templates.TemplateResponse('user_list.html',{"request":request})
 
 app.include_router(api_router, prefix="/api")
 app.mount("/", StaticFiles(directory="static", html=True), name="static")
