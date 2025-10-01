@@ -118,6 +118,7 @@ def call_detail_pokemon(name: str,description: str):
 
     else:
         return {
+            "Image":None,
             "Species": None,
             "Height": None,
             "Weight": None,
