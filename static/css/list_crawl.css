@@ -1,119 +1,379 @@
 body {
   min-height: 100vh;
-  background: #f5f5f5;
+  background: #c9e5ef;
   margin: 0;
+  font-family: "Jersey 10", Arial, sans-serif;
 }
+
 nav {
-  background: white;
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(10px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  padding: 10px 0;
+  position: sticky;
+  top: 0;
+  z-index: 100;
 }
+
 .card_container {
   font-family: "Jersey 10", Arial, sans-serif;
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
-  padding: 20px;
+  padding: 40px 20px;
+  gap: 20px;
 }
+
 h1 {
   font-family: "Jersey 10", Arial, sans-serif;
-  font-size: 50px;
-  margin: 0 auto;
+  font-size: 48px;
+  margin: 5px auto;
   text-align: center;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
 }
+
 h2 {
   font-family: "Jersey 10", Arial, sans-serif;
-  margin: 0 auto;
+  margin: 5px auto;
   text-align: center;
-}
-.center-container {
-  display: flex;
-  justify-content: center; /* Centers the form horizontally */
-  align-items: center; /* Centers the form vertically */
-  height: 35px; /* Sets the height of the container to the full viewport height */
-}
-.card {
-  background: white;
-  border-radius: 12px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-  margin: 15px;
-  width: 250px;
-  text-align: center;
-  overflow: hidden;
-  transition: transform 0.2s;
-}
-.card:hover {
-  transform: scale(1.05);
-}
-.card img {
-  width: 100%;
-  height: 200px;
-  object-fit: contain;
-  object-position: center;
-  display: block;
-  margin: 0 auto;
-}
-.card h2 {
-  margin: 10px 0 5px;
-  font-size: 26px;
-}
-.card p {
-  margin: 3px 0;
-  font-size: 18px;
-}
-.stats {
-  text-align: left;
-  padding: 0 15px 15px;
-}
-.stats p {
-  margin: 2px 0;
+  font-size: 22px;
+  color: #333;
 }
 
 .center-container {
-  margin: 1.25rem auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 10px auto;
 }
+
 .center-container form {
   display: flex;
-  gap: 8px;
+  gap: 6px;
   background: white;
   padding: 6px;
-  border-radius: 12px;
-  border: 1px solid rgba(0, 0, 0, 0.2);
+  border-radius: 50px;
+  border: none;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
 }
 
 #searchInput {
   border: none;
   outline: none;
-  padding: 8px 12px;
+  padding: 8px 16px;
   font-size: 16px;
   font-family: "Jersey 10", Arial, sans-serif;
   background: transparent;
   width: 280px;
+  color: #333;
 }
 
 #searchInput::placeholder {
-  color: #666;
+  color: #999;
 }
 
 .style_button {
-  background: white;
-  color: #333;
-  border: 1px solid rgba(0, 0, 0, 0.2);
-  padding: 8px 16px;
-  border-radius: 8px;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  border: none;
+  padding: 8px 20px;
+  border-radius: 50px;
   font-size: 16px;
   font-family: "Jersey 10", Arial, sans-serif;
   cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 8px rgba(102, 126, 234, 0.3);
 }
 
 .style_button:hover {
-  background: #f5f5f5;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 12px rgba(102, 126, 234, 0.4);
+}
+
+/* Card Styling */
+.card {
+  background: white;
+  border-radius: 20px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+  margin: 0;
+  width: 280px;
+  text-align: center;
+  overflow: hidden;
+  transition: all 0.3s ease;
+  position: relative;
+}
+
+.card::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+}
+
+.card:hover {
+  cursor: pointer;
+  transform: translateY(-10px) scale(1.02);
+  box-shadow: 0 12px 30px rgba(102, 126, 234, 0.3);
+}
+
+.card img {
+  width: 100%;
+  height: 220px;
+  object-fit: contain;
+  object-position: center;
+  display: block;
+  margin: 20px auto 10px;
+  transition: transform 0.3s ease;
+}
+
+.card:hover img {
+  transform: scale(1.1);
+}
+
+.card h2 {
+  margin: 15px 0 10px;
+  font-size: 28px;
+  color: #333;
+}
+
+.card p {
+  margin: 8px 0;
+  font-size: 20px;
+  color: #666;
+}
+
+.stats {
+  text-align: left;
+  padding: 15px 20px 20px;
+  background: linear-gradient(180deg, transparent 0%, #f8f9fa 100%);
+}
+
+.stats p {
+  margin: 6px 0;
+  font-size: 18px;
+  color: #555;
 }
 
 .type-badge {
   display: inline-block;
-  padding: 2px 6px;
-  margin: 1px;
-  border-radius: 4px;
-  font-size: 12px;
+  padding: 6px 14px;
+  margin: 3px;
+  border-radius: 20px;
+  font-size: 16px;
   color: white;
-  background-color: #666;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  box-shadow: 0 2px 6px rgba(102, 126, 234, 0.3);
+}
+
+/* Modal Styling */
+.pokemon-modal {
+  width: 90%;
+  max-width: 700px;
+  border: none;
+  border-radius: 20px;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+  padding: 30px;
+  background: white;
+  font-family: "Jersey 10", Arial, sans-serif;
+  position: relative;
+  overflow-y: auto;
+  max-height: 90vh;
+}
+
+.pokemon-modal::backdrop {
+  background: rgba(0, 0, 0, 0.6);
+  backdrop-filter: blur(4px);
+}
+
+.modal-content {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 15px;
+  align-items: start;
+}
+
+.modal-image {
+  grid-column: 1 / 2;
+  grid-row: 1 / 3;
+  width: 100%;
+  max-width: 280px;
+  height: auto;
+  border-radius: 12px;
+  filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.2));
+  justify-self: center;
+}
+
+.modal-content h2 {
+  grid-column: 2 / 3;
+  grid-row: 1 / 2;
+  font-size: 32px;
+  margin: 0;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  text-align: left;
+}
+
+.modal-info {
+  grid-column: 2 / 3;
+  grid-row: 2 / 3;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.modal-description {
+  grid-column: 1 / -1;
+  text-align: left;
+}
+
+.modal-stats {
+  grid-column: 1 / -1;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
+  margin-top: 10px;
+}
+
+.modal-content p {
+  font-size: 18px;
+  margin: 0;
+  line-height: 1.6;
+  text-align: left;
+  color: #333;
+}
+
+.modal-content p strong {
+  color: #667eea;
+}
+
+.close-button {
+  position: absolute;
+  top: 15px;
+  right: 15px;
+  background: white;
+  color: #667eea;
+  border: 2px solid #667eea;
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  font-size: 20px;
+  font-weight: bold;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s ease;
+  font-family: "Jersey 10", Arial, sans-serif;
+}
+
+.close-button:hover {
+  background: #667eea;
+  color: white;
+  transform: rotate(90deg);
+}
+
+/* Back Button Styling */
+.back-button {
+  position: absolute;
+  top: 15px;
+  left: 15px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 45px;
+  height: 45px;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  border: none;
+  border-radius: 50%;
+  font-size: 24px;
+  text-decoration: none;
+  cursor: pointer;
+  box-shadow: 0 4px 8px rgba(102, 126, 234, 0.3);
+  transition: all 0.3s ease;
+}
+
+.back-button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 12px rgba(102, 126, 234, 0.4);
+}
+
+.back-button::before {
+  content: "<";
+  font-weight: bold;
+  line-height: 1;
+}
+
+@media (max-width: 768px) {
+  .modal-content {
+    grid-template-columns: 1fr;
+  }
+
+  .modal-image {
+    grid-column: 1 / -1;
+    grid-row: auto;
+  }
+
+  .modal-content h2 {
+    grid-column: 1 / -1;
+    text-align: center;
+  }
+
+  .modal-info {
+    grid-column: 1 / -1;
+  }
+
+  .modal-stats {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 600px) {
+  h1 {
+    font-size: 36px;
+  }
+
+  h2 {
+    font-size: 18px;
+  }
+
+  .card {
+    width: 90%;
+    max-width: 320px;
+  }
+
+  .pokemon-modal {
+    max-width: 90%;
+    padding: 20px;
+  }
+
+  .modal-content h2 {
+    font-size: 26px;
+  }
+
+  .modal-content p {
+    font-size: 16px;
+  }
+
+  .modal-image {
+    max-width: 220px;
+  }
+
+  #searchInput {
+    width: 180px;
+    font-size: 14px;
+  }
+
+  .modal-stats {
+    grid-template-columns: 1fr;
+  }
 }
