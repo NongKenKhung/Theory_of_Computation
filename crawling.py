@@ -110,7 +110,7 @@ def call_detail_pokemon(name: str,description: str):
             path_match[n] = path
         print(new_new_path)
         block = extract_div_block(source,path_match[name if description == " " else description])
-        image_match = re.search(r'<p>.*?href="([^"]+)+".*?>',block,re.DOTALL)
+        image_match = re.search(r'<p>.*?"(https://[^"]+)+".*?>',block,re.DOTALL)
         image = image_match.group(1)
 
 
@@ -169,8 +169,8 @@ if __name__ == "__main__" :
     # pokemon_list = crawling()
     # write_to_csv('pokemon_2.csv', pokemon_list)
 
-    # pokemon_list = crawling("Nidoran♀")
-    # print(pokemon_list,sep='\n')
+    pokemon_list = crawling("Ogerpon")
+    print(pokemon_list,sep='\n\n')
     # write_to_csv('pokemon_2.csv', pokemon_list)
 
     # pokemon = each_pokemon("Bulbasaur"," ")
