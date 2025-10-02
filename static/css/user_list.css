@@ -1,63 +1,109 @@
 /* Theme Colors */
 :root {
   --primary-color: #2c3e50;
-  --secondary-color: #ffe562; /* Updated button color */
+  --secondary-color: #ffe562;
   --accent-color: #e74c3c;
   --background-color: #ecf0f1;
   --text-color: #2c3e50;
   --border-color: #bdc3c7;
-  --hover-color: #ef970b; /* Updated hover color */
-  --navbar-footer-color: #5e727d; /* Added navbar/footer color */
+  --hover-color: #ef970b;
+  --navbar-footer-color: #5e727d;
 }
 
 /* User List Styling */
 .user-list {
-  max-width: 600px;
-  margin: 0 auto; /* Center the user list */
-  padding: 1rem;
-  background: #f5f5f5; /* Light background for the list */
-  border-radius: 12px; /* Rounded corners */
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Subtle shadow */
-  text-align: center; /* Center-align the text */
+  width: 100%;
+  max-width: 850px;
+  margin: auto;
+  padding: 2rem;
+  background: white;
+  border-radius: 16px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+  text-align: left;
 }
 
-.user-list p {
-  font-size: 1.1rem;
-  color: #333;
-  margin: 0.5rem 0; /* Add spacing between user entries */
-  font-family: "Jersey 10", Arial, sans-serif;
-}
-
-/* Back Button Styling */
-.back-button {
-  position: absolute;
-  top: 1.2rem;
-  left: 1.2rem;
-  display: inline-block;
+.user-item {
+  display: flex;
+  justify-content: space-between;
   align-items: center;
-  justify-content: center;
-  padding: 12px 24px;
-  background-color: var(--secondary-color);
-  color: var(--text-color); /* Changed to ensure contrast with yellow button */
+  font-size: 1.4rem;
+  color: #2c3e50;
+  margin: 1rem 0;
+  padding: 1rem 1.5rem;
+  font-family: "Jersey 10", Arial, sans-serif;
+  background: #f8f9fa;
+  border-radius: 8px;
+  border-left: 4px solid var(--secondary-color);
+  line-height: 1.6;
+  font-weight: 400;
+}
+
+.user-item:nth-child(even) {
+  background: #f1f3f4;
+}
+
+.user-item:nth-child(odd) {
+  background: #f8f9fa;
+}
+
+.name {
+  flex: 1;
+}
+
+.student-id {
+  font-weight: 600;
+  background: var(--secondary-color);
+  padding: 0.3rem 0.8rem;
+  border-radius: 6px;
+  color: #2c3e50;
+  font-size: 1.2rem;
+}
+
+.back-button {
   text-decoration: none;
-  border: none;
-  border-radius: 8px; /* Circular button */
-  font-size: 20px;
-  font-weight: 500;
+  color: #ffe562;
   cursor: pointer;
-  transition: all 0.3s ease; /* Smooth transition */
+  border: 2px solid rgba(0, 0, 0, 0.4);
+  position: absolute;
+  padding: 5px;
+  border-radius: 5px;
+  display: grid;
+  place-items: center;
+  font-family: "Jersey 10", Arial, sans-serif;
+  font-size: 2rem;
+  left: 1rem;
+  top: 1rem;
 }
 
-.back-button:hover {
-  background-color: var(--hover-color);
-  transform: translateY(-2px); /* Lift effect */
-  box-shadow: 0 4px 12px rgba(239, 151, 11, 0.3); /* Updated shadow color */
-}
-
-/* Add navbar and footer styles */
-.navbar,
 .footer {
   background-color: var(--navbar-footer-color);
   color: white;
-  padding: 15px 0;
+  padding: 20px 0;
+  text-align: center;
+  font-family: "Jersey 10", Arial, sans-serif;
+  font-size: 1.1rem;
+}
+
+.main-content {
+  min-height: calc(100vh - 200px);
+  padding: 2rem;
+  background: #f5f5f5;
+  display: grid;
+  place-items: center;
+}
+
+.header {
+  background-color: var(--navbar-footer-color);
+  color: white;
+  padding: 1.5rem 1rem;
+  text-align: center;
+  position: relative;
+  margin-bottom: 1rem;
+}
+
+.header h1 {
+  font-family: "Jersey 10", Arial, sans-serif;
+  font-size: 2.5rem;
+  color: #fdb71d;
+  margin: 0;
 }
