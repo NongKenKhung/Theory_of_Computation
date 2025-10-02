@@ -11,14 +11,14 @@ templates = Jinja2Templates(directory="static/templates")
 api_router = APIRouter()
 
 @api_router.get("/download/pokemon")
-async def get_pokemon():
+async def get_pokemon(query: str = Query(None)):
     try:
-        pokemon_list = crawling()
+        pokemon_list = crawling(query)
         if not pokemon_list:
             return RedirectResponse(url="/", status_code=302)
         df = pd.DataFrame(
             pokemon_list, 
-            columns=["Number", "Name", "Type", "All", "HP", "Attack", "Defense", "Sp. Atk", "Sp. Def", "Speed", "image"]
+            columns=['Number', 'Name', 'Description', 'image', 'Type', 'Species', 'Height', 'Weight', 'All', 'HP', 'Attack', 'Defense', 'Sp. Atk', 'Sp. Def', 'Speed']
         )
         return StreamingResponse(
             iter([df.to_csv(index=False)]),

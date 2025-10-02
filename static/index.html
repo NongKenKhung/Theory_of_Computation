@@ -442,12 +442,32 @@
         favorite Pokémon data as CSV.
       </p>
       <div class="button-container">
-        <a href="/api/download/pokemon">Download CSV</a>
-        <a href="list-items">View Pokémon List</a>
+        <div class="query-section">
+          <label for="query-input" class="query-label">Add Search Query</label>
+          <input
+            type="text"
+            id="query-input"
+            placeholder="Enter regex pattern..."
+          />
+        </div>
+        <a href="/api/download/pokemon" id="download-btn">Download CSV</a>
+        <a href="list-items" id="list-btn">View Pokémon List</a>
         <a href="/user-list">User List</a>
       </div>
     </main>
 
     <footer class="footer">&copy; 2025 PokéCrawler</footer>
+    <script type="text/javascript">
+      const queryInput = document.getElementById("query-input");
+      const downloadBtn = document.getElementById("download-btn");
+      const listBtn = document.getElementById("list-btn");
+      queryInput.addEventListener("input", (e) => {
+        downloadBtn.setAttribute(
+          "href",
+          `/api/download/pokemon?query=${e.target.value}`
+        );
+        listBtn.setAttribute("href", `/list-items?query=${e.target.value}`);
+      });
+    </script>
   </body>
 </html>

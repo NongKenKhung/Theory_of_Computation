@@ -54,7 +54,7 @@ def crawling(query: str = None):
                     description_match = re.search(r'<small.*?>(.*?)</small>', cols[1], re.DOTALL)
                     description = description_match.group(1) if description_match else " " 
                     image_match = re.search(r'<picture.*?>.*?<img[^>]+src="([^"]+)"', cols[0], re.DOTALL)
-                    image = re.sub(r'/sprites/scarlet-violet/icon/(.*)\.png',r'/artwork/large/\1.jpg',image_match.group(1))
+                    # image = re.sub(r'/sprites/scarlet-violet/icon/(.*)\.png',r'/artwork/large/\1.jpg',image_match.group(1))
                     type_text = re.sub(r'<.*?>', '', cols[2]).strip()
                     stats = [re.sub(r'<.*?>', '', c).strip() for c in cols[3:]]
 
@@ -108,7 +108,7 @@ def call_detail_pokemon(name: str,description: str):
 
         for path,n in new_new_path:
             path_match[n] = path
-        print(new_new_path)
+        # print(new_new_path)
         block = extract_div_block(source,path_match[name if description == " " else description])
         image_match = re.search(r'<p>.*?"(https://[^"]+)+".*?>',block,re.DOTALL)
         image = image_match.group(1)
@@ -131,7 +131,7 @@ def call_detail_pokemon(name: str,description: str):
         return pokemon
 
     else:
-        print("sd")
+        # print("sd")
         return {
             "Image":None,
             "Species": None,

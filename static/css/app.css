@@ -131,6 +131,53 @@ body {
   box-shadow: 0 4px 12px rgba(239, 151, 11, 0.3);
 }
 
+/* Query Input Styling */
+.query-section {
+  margin: 1.5rem 0;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.query-label {
+  font-family: "Jersey 10", Arial, sans-serif;
+  font-size: 1.4rem;
+  color: var(--navbar-footer-color);
+  margin-bottom: 0.8rem;
+  display: block;
+  font-weight: 600;
+}
+
+#query-input {
+  width: 100%;
+  max-width: 250px;
+  padding: 12px 16px;
+  font-family: "Jersey 10", Arial, sans-serif;
+  font-size: 1.1rem;
+  border: 2px solid var(--border-color);
+  border-radius: 12px;
+  background: white;
+  color: var(--text-color);
+  transition: all 0.3s ease;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  margin-bottom: 0;
+  text-align: center;
+}
+
+#query-input:focus {
+  outline: none;
+  border-color: var(--secondary-color);
+  box-shadow: 0 4px 12px rgba(255, 229, 98, 0.3);
+  transform: translateY(-1px);
+}
+
+#query-input::placeholder {
+  color: #999;
+  font-style: italic;
+  text-align: center;
+}
+
 /* Footer */
 .footer {
   color: white;
