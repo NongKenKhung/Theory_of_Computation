@@ -54,9 +54,9 @@ h2 {
 }
 .center-container {
   display: flex;
-  justify-content: center; /* Centers the form horizontally */
-  align-items: center; /* Centers the form vertically */
-  height: 35px; /* Sets the height of the container to the full viewport height */
+  justify-content: center;
+  align-items: center;
+  height: 35px;
 }
 .card {
   background: white;
