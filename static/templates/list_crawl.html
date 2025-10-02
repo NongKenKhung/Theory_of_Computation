@@ -12,24 +12,25 @@
     <link rel="stylesheet" href="../css/list_crawl.css" />
   </head>
   <body>
-    <a href="/" class="back-button">&lt; back</a>
-    <h1>Pokedex</h1>
-    <div class="center-container">
-      <form action="/list-items" method="get">
-        <input
-          type="text"
-          id="searchInput"
-          name="query"
-          placeholder="Search with Regex"
-        />
-        <button class="style_button" type="submit">Query</button>
-      </form>
-    </div>
-    <h2>
-      {% if query_text %} Searched for: {{ query_text }} {% else %} Listing all
-      result {% endif %}
-    </h2>
-    <br />
+    <nav>
+      <a href="/" class="back-button">&lt; back</a>
+      <h1>Pokedex</h1>
+      <div class="center-container">
+        <form action="/list-items" method="get">
+          <input
+            type="text"
+            id="searchInput"
+            name="query"
+            placeholder="Search with Regex"
+          />
+          <button class="style_button" type="submit">Query</button>
+        </form>
+      </div>
+      <h2>
+        {% if query_text %} Searched for: {{ query_text }} {% else %} Listing
+        all result {% endif %}
+      </h2>
+    </nav>
     <div class="card_container">
       {% if data %} {% for pokemon in data %}
       <div
