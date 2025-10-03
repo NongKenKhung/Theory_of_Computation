@@ -1,13 +1,13 @@
 /* Theme Colors */
 :root {
   --primary-color: #2c3e50;
-  --secondary-color: #ffe562; /* Updated button color */
+  --secondary-color: #ffe562;
   --accent-color: #e74c3c;
   --background-color: #ecf0f1;
   --text-color: #2c3e50;
   --border-color: #bdc3c7;
-  --hover-color: #ef970b; /* Updated hover color */
-  --navbar-footer-color: #5e727d; /* Added navbar/footer color */
+  --hover-color: #ef970b;
+  --navbar-footer-color: #5e727d;
 }
 
 /* General Layout */
@@ -55,7 +55,6 @@ body {
   margin-bottom: 1rem;
 }
 
-/* Random Pokémon Image */
 .random-pokemon {
   margin: 2rem auto;
   display: flex;
@@ -115,7 +114,7 @@ body {
   display: block;
   padding: 15px 30px;
   background-color: var(--secondary-color);
-  color: var(--text-color); /* Changed to ensure contrast with yellow button */
+  color: var(--text-color);
   text-decoration: none;
   text-align: center;
   border-radius: 8px;
@@ -129,19 +128,64 @@ body {
 .btn:hover {
   background-color: var(--hover-color);
   transform: translateY(-2px);
-  box-shadow: 0 4px 12px rgba(239, 151, 11, 0.3); /* Updated shadow color */
+  box-shadow: 0 4px 12px rgba(239, 151, 11, 0.3);
+}
+
+/* Query Input Styling */
+.query-section {
+  margin: 1.5rem 0;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.query-label {
+  font-family: "Jersey 10", Arial, sans-serif;
+  font-size: 1.4rem;
+  color: var(--navbar-footer-color);
+  margin-bottom: 0.8rem;
+  display: block;
+  font-weight: 600;
+}
+
+#query-input {
+  width: 100%;
+  max-width: 250px;
+  padding: 12px 16px;
+  font-family: "Jersey 10", Arial, sans-serif;
+  font-size: 1.1rem;
+  border: 2px solid var(--border-color);
+  border-radius: 12px;
+  background: white;
+  color: var(--text-color);
+  transition: all 0.3s ease;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  margin-bottom: 0;
+  text-align: center;
+}
+
+#query-input:focus {
+  outline: none;
+  border-color: var(--secondary-color);
+  box-shadow: 0 4px 12px rgba(255, 229, 98, 0.3);
+  transform: translateY(-1px);
+}
+
+#query-input::placeholder {
+  color: #999;
+  font-style: italic;
+  text-align: center;
 }
 
 /* Footer */
 .footer {
-  background-color: #5e727d;
   color: white;
   text-align: center;
   padding: 1rem;
   margin-top: auto;
 }
 
-/* Add navbar and footer styles */
 .navbar,
 .footer {
   background-color: var(--navbar-footer-color);

@@ -11,14 +11,14 @@ templates = Jinja2Templates(directory="static/templates")
 api_router = APIRouter()
 
 @api_router.get("/download/pokemon")
-async def get_pokemon():
+async def get_pokemon(query: str = Query(None)):
     try:
-        pokemon_list = crawling()
+        pokemon_list = crawling(query)
         if not pokemon_list:
             return RedirectResponse(url="/", status_code=302)
         df = pd.DataFrame(
             pokemon_list, 
-            columns=["Number", "Name", "Type", "All", "HP", "Attack", "Defense", "Sp. Atk", "Sp. Def", "Speed", "image"]
+            columns=['Number', 'Name', 'Description', 'image', 'Type', 'Species', 'Height', 'Weight', 'All', 'HP', 'Attack', 'Defense', 'Sp. Atk', 'Sp. Def', 'Speed']
         )
         return StreamingResponse(
             iter([df.to_csv(index=False)]),
@@ -28,7 +28,7 @@ async def get_pokemon():
     except Exception as e:
         return RedirectResponse(url="/", status_code=302)
 
-@app.get("/list-items", response_class=HTMLResponse)
+@api_router.get("/list-items", response_class=HTMLResponse)
 async def read_item(request: Request, query: str = Query(None)):
     try:
         pokemon_list = crawling(query)
@@ -36,10 +36,14 @@ async def read_item(request: Request, query: str = Query(None)):
         # ['Number', 'Name', 'Description', 'image', 'Type', 'Species', 
         # 'Height', 'Weight', 'All', 'HP', 'Attack', 'Defense', 'Sp. Atk', 'Sp. Def', 'Speed']
         return templates.TemplateResponse(
-            "list_crawl.html", {"request": request, "data": pokemon_list, "query_text": query}
+            "pokemon_list.html", {"request": request, "data": pokemon_list, "query_text": query}
         )
     except Exception as e:
         return Response(status_code=500)
+
+@app.get("/pokemon-list", response_class=HTMLResponse)
+async def pokemon_list(request: Request, query: str = Query(None)):
+    return templates.TemplateResponse('pokemon_page.html', {"request":request, "query": query})
 
 @app.get("/user-list", response_class=HTMLResponse)
 async def user_list(request:Request):
