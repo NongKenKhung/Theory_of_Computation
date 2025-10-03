@@ -15,7 +15,7 @@ async function loadCsv(query) {
                }'>retry</a>
                <a href='/'>home</a>
                <p>HTTP status ${response.status} : detail ${
-        data.detail || "internal server error"
+        data.detail || "Internal server error"
       }</p>
             </div>
          `;

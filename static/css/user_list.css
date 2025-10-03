@@ -107,3 +107,79 @@
   color: #fdb71d;
   margin: 0;
 }
+
+.project-info {
+  background: white;
+  padding: 25px;
+  border-radius: 12px;
+  margin-bottom: 25px;
+  text-align: center;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+  border: 1px solid #e1e8ed;
+}
+
+.project-info h2 {
+  color: #333;
+  margin-bottom: 20px;
+  font-size: 1.5rem;
+  font-weight: 600;
+}
+
+.project-links {
+  display: flex;
+  gap: 20px;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.btn-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 12px 24px;
+  text-decoration: none;
+  border-radius: 8px;
+  font-weight: 600;
+  font-size: 1rem;
+  transition: all 0.3s ease;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+}
+
+.btn-link.github {
+  background: #333;
+  color: white;
+}
+
+.btn-link.github:hover {
+  background: #24292e;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
+}
+
+.btn-link.youtube {
+  background: #ff0000;
+  color: white;
+}
+
+.btn-link.youtube:hover {
+  background: #cc0000;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(255, 0, 0, 0.3);
+}
+
+.btn-link .icon {
+  flex-shrink: 0;
+}
+
+/* Responsive design */
+@media (max-width: 600px) {
+  .project-links {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .btn-link {
+    width: 200px;
+    justify-content: center;
+  }
+}

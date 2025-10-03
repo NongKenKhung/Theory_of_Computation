@@ -36,7 +36,7 @@ async function crawl(query) {
       }
       document.getElementById("pokemon-list").innerHTML = `
               <div class="error-message">
-                <h3>Failed to load Pokemon data</h3>
+                <h3>Failed to load Pokémon data</h3>
                 <p>HTTP Status ${response.status}</p>
                 <button onclick="window.location.reload()" class="style_button">Retry</button>
               </div>
@@ -59,7 +59,7 @@ async function crawl(query) {
     console.error(error);
     document.getElementById("pokemon-list").innerHTML = `
             <div class="error-message">
-              <h3>Failed to load Pokemon data</h3>
+              <h3>Failed to load Pokémon data</h3>
               <p>${error.message}</p>
               <button onclick="window.location.reload()" class="style_button">Retry</button>
             </div>
