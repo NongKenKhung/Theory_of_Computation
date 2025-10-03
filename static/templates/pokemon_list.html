@@ -2,7 +2,7 @@
 <div
   class="card"
   data-name="{{ pokemon.name|lower }}"
-  onclick="openModal('{{ pokemon.Number }}')"
+  onclick="openModal('{{ loop.index0 }}')"
 >
   <img src="{{ pokemon.image }}" alt="{{ pokemon.name }}" />
   <h2>#{{ pokemon.Number }} {{ pokemon.Name }}</h2>
@@ -21,8 +21,8 @@
     <p><strong>Speed:</strong> {{ pokemon.Speed }}</p>
   </div>
 </div>
-<dialog id="modal-{{ pokemon.Number }}" class="pokemon-modal">
-  <button class="close-button" onclick="closeModal('{{ pokemon.Number }}')">
+<dialog id="modal-{{ loop.index0 }}" class="pokemon-modal">
+  <button class="close-button" onclick="closeModal('{{ loop.index0 }}')">
     X
   </button>
   <img src="{{ pokemon.image }}" alt="{{ pokemon.name }}" class="modal-image" />
