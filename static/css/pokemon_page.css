@@ -399,3 +399,13 @@ h2 {
 .error-message .style_button:hover {
   background-color: #c82333;
 }
+@media (max-width: 480px) {
+  .back-button {
+    font-size: 1.2rem;
+    padding: 2px;
+    width: 50px;
+    height: 30px;
+    left: 0.5rem;
+    top: 0.5rem;
+  }
+}
