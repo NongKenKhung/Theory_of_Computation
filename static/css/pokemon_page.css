@@ -153,62 +153,62 @@ h2 {
 }
 
 .normal {
-  background-color: #aa9 !important;
+  background-color: #aa9;
 }
 .fire {
-  background-color: #f42 !important;
+  background-color: #f42;
 }
 .water {
-  background-color: #39f !important;
+  background-color: #39f;
 }
 .electric {
-  background-color: #fc3 !important;
-  color: #333 !important;
+  background-color: #fc3;
+  color: #333;
 }
 .grass {
-  background-color: #7c5 !important;
+  background-color: #7c5;
 }
 .ice {
-  background-color: #6cf !important;
-  color: #333 !important;
+  background-color: #6cf;
+  color: #333;
 }
 .fighting {
-  background-color: #b54 !important;
+  background-color: #b54;
 }
 .poison {
-  background-color: #a59 !important;
+  background-color: #a59;
 }
 .ground {
-  background-color: #db5 !important;
-  color: #333 !important;
+  background-color: #db5;
+  color: #333;
 }
 .flying {
-  background-color: #89f !important;
+  background-color: #89f;
 }
 .psychic {
-  background-color: #f59 !important;
+  background-color: #f59;
 }
 .bug {
-  background-color: #ab2 !important;
+  background-color: #ab2;
 }
 .rock {
-  background-color: #ba6 !important;
+  background-color: #ba6;
 }
 .ghost {
-  background-color: #66b !important;
+  background-color: #66b;
 }
 .dragon {
-  background-color: #76e !important;
+  background-color: #76e;
 }
 .dark {
-  background-color: #754 !important;
+  background-color: #754;
 }
 .steel {
-  background-color: #aab !important;
+  background-color: #aab;
 }
 .fairy {
-  background-color: #e9e !important;
-  color: #333 !important;
+  background-color: #e9e;
+  color: #333;
 }
 
 .type-container {
@@ -281,7 +281,6 @@ h2 {
   color: #333;
   font-size: 16px;
   font-weight: 500;
-  background: #ffe562;
   padding: 4px 12px;
   border-radius: 6px;
   min-width: 60px;
@@ -297,7 +296,6 @@ h2 {
 }
 
 .type-container .type-badge {
-  background-color: #ffe562;
   color: white;
   padding: 4px 10px;
   border-radius: 6px;
