@@ -451,7 +451,7 @@
           />
         </div>
         <a href="/api/download/pokemon" id="download-btn">Download CSV</a>
-        <a href="list-items" id="list-btn">View Pokémon List</a>
+        <a href="/pokemon-list" id="list-btn">View Pokémon List</a>
         <a href="/user-list">User List</a>
       </div>
     </main>
@@ -466,7 +466,7 @@
           "href",
           `/api/download/pokemon?query=${e.target.value}`
         );
-        listBtn.setAttribute("href", `/list-items?query=${e.target.value}`);
+        listBtn.setAttribute("href", `/pokemon-list?query=${e.target.value}`);
       });
     </script>
   </body>

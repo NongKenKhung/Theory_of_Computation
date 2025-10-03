@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Jersey+10&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="../css/loading.css" />
+    <title>Pokedex</title>
+    <link rel="stylesheet" href="../css/list_crawl.css" />
+  </head>
+  <body>
+    <nav>
+      <a href="/" class="back-button">&lt; back</a>
+      <h1>Pokedex</h1>
+      <div class="center-container">
+        <form action="/pokemon-list" method="get">
+          <input
+            type="text"
+            id="searchInput"
+            name="query"
+            placeholder="Search with Regex"
+          />
+          <button class="style_button" type="submit">Query</button>
+        </form>
+      </div>
+      <h2 id="query"></h2>
+    </nav>
+    <div class="card_container" id="pokemon-list">
+      <div class="loading">
+        <div class="spinner"></div>
+        <p>loading your pokemon</p>
+      </div>
+    </div>
+    <script>
+      function openModal(id) {
+        const modal = document.getElementById(`modal-${id}`);
+        if (modal) {
+          modal.showModal();
+        }
+      }
+
+      function closeModal(id) {
+        const modal = document.getElementById(`modal-${id}`);
+        if (modal) {
+          modal.close();
+        }
+      }
+
+      async function crawl(query) {
+        const response = await fetch(
+          `/api/list-items${
+            query == null ? "" : "?query=" + encodeURIComponent(query)
+          }`
+        );
+        if (!response.ok) {
+          document.getElementById("pokemon-list").innerHTML =
+            "fail to crawl data. Reload to retry";
+        }
+
+        const contentType = response.headers.get("content-type");
+        if (!contentType || !contentType.includes("text/html")) {
+          throw new Error("Invalid response format (should be text/html)");
+        }
+
+        const data = await response.text();
+        const queryTag = document.getElementById("query");
+        queryTag.innerText =
+          query == null ? "list all pokemmon" : `result of ${query}`;
+        document.getElementById("pokemon-list").innerHTML = data;
+      }
+
+      window.onload = () => {
+        const params = new Proxy(new URLSearchParams(window.location.search), {
+          get: (searchParams, prop) => searchParams.get(prop),
+        });
+        crawl(params.query);
+      };
+    </script>
+  </body>
+</html>
