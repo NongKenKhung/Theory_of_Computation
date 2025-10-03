@@ -33,6 +33,7 @@ def write_to_csv(filepath, pokemon_list):
 def crawling(query: str = None):
     start_path = "all"
     response = requests.get(f'{base_path}{start_path}')
+    print(f'query is {query}')
 
     if response.status_code == 200:
         source = response.text
@@ -43,20 +44,27 @@ def crawling(query: str = None):
 
             rows = re.findall(r'<tr>(.*?)</tr>', tbody_html, re.DOTALL)
 
-            if query:
+            if query and query.strip() != '':
                 filtered_row = []
-                for row in rows:
-                    cols = re.findall(r'<td.*?>(.*?)</td>', row, re.DOTALL)
-                    if len(cols) >= 2:
-                        name_match = re.search(r'<a [^>]+>([^<]+)</a>', cols[1])
-                        name = name_match.group(1) if name_match else ''
-                        if re.search(query, name, re.IGNORECASE):
-                            filtered_row.append(row)
+                query = query.strip()
+                try:
+                    for row in rows:
+                        cols = re.findall(r'<td.*?>(.*?)</td>', row, re.DOTALL)
+                        if len(cols) >= 2:
+                            name_match = re.search(r'<a [^>]+>([^<]+)</a>', cols[1])
+                            name = name_match.group(1) if name_match else ''
+                            if re.search(query, name, re.IGNORECASE):
+                                filtered_row.append(row)
+                except re.error as e:
+                    raise ValueError(f'error occur {e}')
                 rows = filtered_row
 
                         
 
+            if len(rows) == 0:
+                return []
             pokemon_list = []
+            print(len(rows))
             with concurrent.futures.ThreadPoolExecutor(max_workers=None) as executor:
                 future_to_url = {executor.submit(crawl_detail_pool, row): row for row in rows}
                 for future in concurrent.futures.as_completed(future_to_url):
@@ -68,7 +76,6 @@ def crawling(query: str = None):
                     except Exception as e:
                         print(f'Error {e}')
 
-            # print(pokemon_list)
             return pokemon_list
     else:
         return []

@@ -462,11 +462,13 @@
       const downloadBtn = document.getElementById("download-btn");
       const listBtn = document.getElementById("list-btn");
       queryInput.addEventListener("input", (e) => {
+        let queryValue = e.target.value;
+        queryValue = encodeURIComponent(queryValue.trim());
         downloadBtn.setAttribute(
           "href",
-          `/api/download/pokemon?query=${e.target.value}`
+          `/api/download/pokemon?query=${queryValue}`
         );
-        listBtn.setAttribute("href", `/pokemon-list?query=${e.target.value}`);
+        listBtn.setAttribute("href", `/pokemon-list?query=${queryValue}`);
       });
     </script>
   </body>

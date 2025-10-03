@@ -1,4 +1,4 @@
-from fastapi import FastAPI, APIRouter, Query, Request
+from fastapi import FastAPI, APIRouter, Query, Request, HTTPException
 from fastapi.staticfiles import StaticFiles
 from fastapi.responses import StreamingResponse,RedirectResponse, JSONResponse, HTMLResponse, Response
 from fastapi.templating import Jinja2Templates
@@ -38,7 +38,10 @@ async def read_item(request: Request, query: str = Query(None)):
         return templates.TemplateResponse(
             "pokemon_list.html", {"request": request, "data": pokemon_list, "query_text": query}
         )
+    except ValueError as e:
+        raise HTTPException(status_code=400, detail=f'{e}')
     except Exception as e:
+        print(e)
         return Response(status_code=500)
 
 @app.get("/pokemon-list", response_class=HTMLResponse)
