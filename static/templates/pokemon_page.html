@@ -69,7 +69,7 @@
         const data = await response.text();
         const queryTag = document.getElementById("query");
         queryTag.innerText =
-          query == null ? "list all pokemmon" : `result of ${query}`;
+          query == null ? "list all pokemon" : `result of ${query}`;
         document.getElementById("pokemon-list").innerHTML = data;
       }
 
