@@ -26,7 +26,7 @@ async def get_pokemon(query: str = Query(None)):
             headers={"Content-Disposition": "attachment; filename=pokemon.csv"}
         )
     except Exception as e:
-        return RedirectResponse(url="/", status_code=302)
+        raise HTTPException(status_code=500, detail=f'Error: {e}')
 
 @api_router.get("/list-items", response_class=HTMLResponse)
 async def read_item(request: Request, query: str = Query(None)):
@@ -43,6 +43,10 @@ async def read_item(request: Request, query: str = Query(None)):
     except Exception as e:
         print(e)
         return Response(status_code=500)
+
+@app.get("/loading-pokemon", response_class=HTMLResponse)
+async def load_pokemon(request: Request, query: str = Query(None)):
+    return templates.TemplateResponse('loading_pokemon.html', {"request":request, "query":query})
 
 @app.get("/pokemon-list", response_class=HTMLResponse)
 async def pokemon_list(request: Request, query: str = Query(None)):

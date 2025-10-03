@@ -33,7 +33,6 @@ def write_to_csv(filepath, pokemon_list):
 def crawling(query: str = None):
     start_path = "all"
     response = requests.get(f'{base_path}{start_path}')
-    print(f'query is {query}')
 
     if response.status_code == 200:
         source = response.text
@@ -64,7 +63,6 @@ def crawling(query: str = None):
             if len(rows) == 0:
                 return []
             pokemon_list = []
-            print(len(rows))
             with concurrent.futures.ThreadPoolExecutor(max_workers=None) as executor:
                 future_to_url = {executor.submit(crawl_detail_pool, row): row for row in rows}
                 for future in concurrent.futures.as_completed(future_to_url):
