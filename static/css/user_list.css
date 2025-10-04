@@ -171,7 +171,6 @@
   flex-shrink: 0;
 }
 
-/* Responsive design */
 @media (max-width: 600px) {
   .project-links {
     flex-direction: column;
@@ -184,11 +183,35 @@
   }
 
   .back-button {
-    font-size: 1.2rem;
+    font-size: 1rem;
     padding: 2px;
     width: 50px;
     height: 30px;
     left: 0.3rem;
     top: 0.3rem;
+  }
+  .user-list {
+    padding: 1rem;
+    margin: 0 0.5rem;
+  }
+
+  .user-item {
+    padding: 12px 15px;
+    align-items: flex-start;
+    gap: 8px;
+    font-size: 1.1rem;
+    margin: 0.8rem 0;
+  }
+
+  .name {
+    font-size: 1rem;
+    line-height: 1.4;
+  }
+
+  .student-id {
+    font-size: 0.9rem;
+    align-self: flex-end;
+    font-weight: 600;
+    padding: 0.2rem 0.6rem;
   }
 }
