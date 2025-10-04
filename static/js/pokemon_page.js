@@ -41,7 +41,7 @@ async function crawl(query) {
     const queryTag = document.getElementById("query");
     queryTag.innerText = normalizedQuery
       ? `result of ${normalizedQuery}`
-      : "list all pokemon";
+      : "List all Pokémon";
     document.getElementById("pokemon-list").innerHTML = data;
   } catch (error) {
     console.error(error);

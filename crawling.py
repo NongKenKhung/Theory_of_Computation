@@ -55,7 +55,7 @@ def crawling(query: str = None):
                             if re.search(query, name, re.IGNORECASE):
                                 filtered_row.append(row)
                 except re.error as e:
-                    raise ValueError(f'error occur {e}')
+                    raise ValueError(f'Invalid regex pattern: {e}')
                 rows = filtered_row
 
                         
@@ -79,7 +79,6 @@ def crawling(query: str = None):
         return []
 
 def crawl_detail_pool(row):
-    s = time.time()
     cols = re.findall(r'<td.*?>(.*?)</td>', row, re.DOTALL)
     if len(cols) >= 10:
         number = re.sub(r'<.*?>', '', cols[0]).strip()
@@ -92,8 +91,6 @@ def crawl_detail_pool(row):
 
         detail = call_detail_pokemon(name,description)
 
-        e = time.time()
-        # print(f'{name} request time {(e - s) * 1000} ms')
         return {
             "Number": number,
             "Name": name,
