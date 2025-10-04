@@ -1,6 +1,6 @@
 async function loadCsv(query) {
+  const normalizedQuery = query && query.trim() !== "" ? query.trim() : null;
   try {
-    const normalizedQuery = query && query.trim() !== "" ? query.trim() : null;
     const response = await fetch(
       `/api/download/pokemon${
         normalizedQuery ? "?query=" + encodeURIComponent(normalizedQuery) : ""
@@ -8,17 +8,7 @@ async function loadCsv(query) {
     );
     if (!response.ok) {
       const data = await response.json();
-      document.getElementById("body").innerHTML = `
-            <div class='error-container'>
-               <a href='/loading-pokemon${
-                 query ? "?query=" + query : ""
-               }'>retry</a>
-               <a href='/'>home</a>
-               <p>HTTP status ${response.status} : detail ${
-        data.detail || "Internal server error"
-      }</p>
-            </div>
-         `;
+      createErrorElement(response.status, data);
       return;
     }
     const contentType = response.headers.get("content-type");
@@ -41,17 +31,36 @@ async function loadCsv(query) {
     }, 500);
   } catch (error) {
     console.log(error);
-    document.getElementById("body").innerHTML = `
-            <div class='error-container'>
-               <a href='/loading-pokemon${
-                 query ? "?query=" + query : ""
-               }'>retry</a>
-               <a href='/'>home</a>
-               <p>HTTP status 500 : detail internal server error</p>
-            </div>
-         `;
+    createErrorElement(500, { detail: error.message });
   }
 }
+
+function createErrorElement(status, errorData) {
+  const container = document.getElementById("body");
+  container.innerHTML = "";
+
+  const errorDiv = document.createElement("div");
+  errorDiv.className = "error-message";
+
+  const h3 = document.createElement("h3");
+  h3.textContent = "Failed to download Pokémon data";
+
+  const p = document.createElement("p");
+  p.textContent = `HTTP Status ${status || "500"}: ${
+    errorData.detail || "Internal server error"
+  }`;
+
+  const button = document.createElement("button");
+  button.onclick = () => window.location.reload();
+  button.className = "style_button";
+  button.textContent = "Retry";
+
+  errorDiv.appendChild(h3);
+  errorDiv.appendChild(p);
+  errorDiv.appendChild(button);
+  container.appendChild(errorDiv);
+}
+
 window.onload = () => {
   const params = new Proxy(new URLSearchParams(window.location.search), {
     get: (searchParams, prop) => searchParams.get(prop),

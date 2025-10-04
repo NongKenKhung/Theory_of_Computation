@@ -23,24 +23,12 @@ async function crawl(query) {
     );
 
     if (!response.ok) {
+      const errorData = await response.json();
       if (response.status == 400) {
-        const errorData = await response.json();
-        document.getElementById("pokemon-list").innerHTML = `
-              <div class="error-message">
-                <h3>Invalid Request</h3>
-                <p>HTTP Status ${errorData.detail || "Bad Request"}</p>
-                <button onclick="window.location.reload()" class="style_button">Retry</button>
-              </div>
-            `;
+        createErrorElement(response.status, errorData, "Invalid Request");
         return;
       }
-      document.getElementById("pokemon-list").innerHTML = `
-              <div class="error-message">
-                <h3>Failed to load Pokémon data</h3>
-                <p>HTTP Status ${response.status}</p>
-                <button onclick="window.location.reload()" class="style_button">Retry</button>
-              </div>
-            `;
+      createErrorElement(response.status, errorData);
       return;
     }
 
@@ -57,14 +45,29 @@ async function crawl(query) {
     document.getElementById("pokemon-list").innerHTML = data;
   } catch (error) {
     console.error(error);
-    document.getElementById("pokemon-list").innerHTML = `
-            <div class="error-message">
-              <h3>Failed to load Pokémon data</h3>
-              <p>${error.message}</p>
-              <button onclick="window.location.reload()" class="style_button">Retry</button>
-            </div>
-          `;
+    createErrorElement(500, { detail: error.message });
   }
+}
+
+function createErrorElement(status, errorData, message) {
+  const container = document.getElementById("pokemon-list");
+  container.innerHTML = "";
+  const errorDiv = document.createElement("div");
+  errorDiv.className = "error-message";
+  const h3 = document.createElement("h3");
+  h3.textContent = message || "Failed to load Pokémon data";
+  const p = document.createElement("p");
+  p.textContent = `HTTP Status ${status || "500"}: ${
+    errorData.detail || "Internal server error"
+  }`;
+  const button = document.createElement("button");
+  button.onclick = () => window.location.reload();
+  button.className = "style_button";
+  button.textContent = "Retry";
+  errorDiv.appendChild(h3);
+  errorDiv.appendChild(p);
+  errorDiv.appendChild(button);
+  container.appendChild(errorDiv);
 }
 
 window.onload = () => {

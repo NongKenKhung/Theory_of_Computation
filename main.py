@@ -25,8 +25,10 @@ async def get_pokemon(query: str = Query(None)):
             media_type="text/csv",
             headers={"Content-Disposition": "attachment; filename=pokemon.csv"}
         )
+    except ValueError as e:
+        raise HTTPException(status_code=400, detail=f'{e}')
     except Exception as e:
-        raise HTTPException(status_code=500, detail=f'Error: {e}')
+        raise HTTPException(status_code=500, detail=f'Internal server error')
 
 @api_router.get("/list-items", response_class=HTMLResponse)
 async def read_item(request: Request, query: str = Query(None)):
@@ -42,7 +44,7 @@ async def read_item(request: Request, query: str = Query(None)):
         raise HTTPException(status_code=400, detail=f'{e}')
     except Exception as e:
         print(e)
-        return Response(status_code=500)
+        raise HTTPException(status_code=500, detail=f'Internal server error')
 
 @app.get("/loading-pokemon", response_class=HTMLResponse)
 async def load_pokemon(request: Request, query: str = Query(None)):
