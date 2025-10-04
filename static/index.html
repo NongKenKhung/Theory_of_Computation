@@ -111,7 +111,7 @@
               class="delivery-pikachu_svg__cls-1"
             ></path>
             <path
-              d="M34.65 128.15c-5.12-1.03-15.56-4.66-16.36-12.91-.2-2.08.06-3.64 1.01-4.96.58-.81 1.98-.81 2.86.51.4.6 1.1 1.54 1.32 3.01.09.61-.97 1.2-1.1.59-.37-1.76-1.53-2.86-1.98-2.86-.45 0-.71 2.25-.21 4.05 2.05 7.54 9.4 9.45 14.66 10.46 0 0 19.11 4.49 20.89 5.09.19.96-.49 1.84-.58 2.31-.08.45-20.5-5.28-20.5-5.28Z"
+              d="M34.65 128.15c-5.12-1.03-15.56-4.66-16.36-12.91-.2-2.08.06-3.64 1.01-4.96.58-.81 1.98-.81 2.86.51.4.6 1.1 1.54 1.32 3.01.09.61-.97 1.2-1.1.59-.37-1.76-1.53-2.86-1.98-2.86-.45 0-.71 2.25-.21 4.05 2.05 7.54 9.4 9.45 14.66 10.46 0 0 .44.1 1.19.28.87.94 1.08 1.47 1.85 2.73l-3.23-.9Z"
               class="delivery-pikachu_svg__cls-18"
             ></path>
             <path
@@ -450,24 +450,13 @@
             placeholder="Enter regex pattern..."
           />
         </div>
-        <a href="/api/download/pokemon" id="download-btn">Download CSV</a>
+        <a href="/loading-pokemon" id="download-btn">Download CSV</a>
         <a href="/pokemon-list" id="list-btn">View Pokémon List</a>
-        <a href="/user-list">User List</a>
+        <a href="/user-list">Contributors</a>
       </div>
     </main>
 
     <footer class="footer">&copy; 2025 PokéCrawler</footer>
-    <script type="text/javascript">
-      const queryInput = document.getElementById("query-input");
-      const downloadBtn = document.getElementById("download-btn");
-      const listBtn = document.getElementById("list-btn");
-      queryInput.addEventListener("input", (e) => {
-        downloadBtn.setAttribute(
-          "href",
-          `/api/download/pokemon?query=${e.target.value}`
-        );
-        listBtn.setAttribute("href", `/pokemon-list?query=${e.target.value}`);
-      });
-    </script>
+    <script src="./js/app.js"></script>
   </body>
 </html>

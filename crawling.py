@@ -2,6 +2,8 @@ import requests
 import re
 import csv
 import html
+import time
+import concurrent.futures
 
 class Stack:
     def __init__(self):
@@ -41,46 +43,71 @@ def crawling(query: str = None):
 
             rows = re.findall(r'<tr>(.*?)</tr>', tbody_html, re.DOTALL)
 
+            if query and query.strip() != '':
+                filtered_row = []
+                query = query.strip()
+                try:
+                    for row in rows:
+                        cols = re.findall(r'<td.*?>(.*?)</td>', row, re.DOTALL)
+                        if len(cols) >= 2:
+                            name_match = re.search(r'<a [^>]+>([^<]+)</a>', cols[1])
+                            name = name_match.group(1) if name_match else ''
+                            if re.search(query, name, re.IGNORECASE):
+                                filtered_row.append(row)
+                except re.error as e:
+                    raise ValueError(f'Invalid regex pattern: {e}')
+                rows = filtered_row
+
+                        
+
+            if len(rows) == 0:
+                return []
             pokemon_list = []
-
-            for row in rows:
-                cols = re.findall(r'<td.*?>(.*?)</td>', row, re.DOTALL)
-                if len(cols) >= 10:
-                    number = re.sub(r'<.*?>', '', cols[0]).strip()
-                    name_match = re.search(r'<a [^>]+>([^<]+)</a>', cols[1])
-                    name = name_match.group(1) if name_match else ''
-                    if query and not re.search(query, name, re.IGNORECASE):
-                        continue
-                    description_match = re.search(r'<small.*?>(.*?)</small>', cols[1], re.DOTALL)
-                    description = description_match.group(1) if description_match else " " 
-                    image_match = re.search(r'<picture.*?>.*?<img[^>]+src="([^"]+)"', cols[0], re.DOTALL)
-                    # image = re.sub(r'/sprites/scarlet-violet/icon/(.*)\.png',r'/artwork/large/\1.jpg',image_match.group(1))
-                    type_text = re.sub(r'<.*?>', '', cols[2]).strip()
-                    stats = [re.sub(r'<.*?>', '', c).strip() for c in cols[3:]]
-
-                    detail = call_detail_pokemon(name,description)
-
-                    pokemon_list.append({
-                        "Number": number,
-                        "Name": name,
-                        "Description": description,
-                        "image": detail["Image"],
-                        "Type": type_text.split(),
-                        "Species": detail["Species"],
-                        "Height": detail["Height"],
-                        "Weight": detail["Weight"],
-                        "All":stats[0], 
-                        "HP":stats[1], 
-                        "Attack":stats[2], 
-                        "Defense":stats[3], 
-                        "Sp. Atk":stats[4], 
-                        "Sp. Def":stats[5],
-                        "Speed":stats[6],
-                    })
+            with concurrent.futures.ThreadPoolExecutor(max_workers=None) as executor:
+                future_to_url = {executor.submit(crawl_detail_pool, row): row for row in rows}
+                for future in concurrent.futures.as_completed(future_to_url):
+                    url = future_to_url[future]
+                    try: 
+                        data = future.result()
+                        if data is not None:
+                            pokemon_list.append(data)
+                    except Exception as e:
+                        print(f'Error {e}')
 
             return pokemon_list
     else:
         return []
+
+def crawl_detail_pool(row):
+    cols = re.findall(r'<td.*?>(.*?)</td>', row, re.DOTALL)
+    if len(cols) >= 10:
+        number = re.sub(r'<.*?>', '', cols[0]).strip()
+        name_match = re.search(r'<a [^>]+>([^<]+)</a>', cols[1])
+        name = name_match.group(1) if name_match else ''
+        description_match = re.search(r'<small.*?>(.*?)</small>', cols[1], re.DOTALL)
+        description = description_match.group(1) if description_match else " " 
+        type_text = re.sub(r'<.*?>', '', cols[2]).strip()
+        stats = [re.sub(r'<.*?>', '', c).strip() for c in cols[3:]]
+
+        detail = call_detail_pokemon(name,description)
+
+        return {
+            "Number": number,
+            "Name": name,
+            "Description": description,
+            "image": detail["Image"],
+            "Type": type_text.split(),
+            "Species": detail["Species"],
+            "Height": detail["Height"],
+            "Weight": detail["Weight"],
+            "All":stats[0], 
+            "HP":stats[1], 
+            "Attack":stats[2], 
+            "Defense":stats[3], 
+            "Sp. Atk":stats[4], 
+            "Sp. Def":stats[5],
+            "Speed":stats[6],
+        }
     
 def call_detail_pokemon(name: str,description: str):
     tmp_str = ""
@@ -108,7 +135,6 @@ def call_detail_pokemon(name: str,description: str):
 
         for path,n in new_new_path:
             path_match[n] = path
-        # print(new_new_path)
         block = extract_div_block(source,path_match[name if description == " " else description])
         image_match = re.search(r'<p>.*?"(https://[^"]+)+".*?>',block,re.DOTALL)
         image = image_match.group(1)
@@ -131,7 +157,6 @@ def call_detail_pokemon(name: str,description: str):
         return pokemon
 
     else:
-        # print("sd")
         return {
             "Image":None,
             "Species": None,
@@ -169,8 +194,11 @@ if __name__ == "__main__" :
     # pokemon_list = crawling()
     # write_to_csv('pokemon_2.csv', pokemon_list)
 
-    pokemon_list = crawling("Ogerpon")
-    print(pokemon_list,sep='\n\n')
+    s = time.time()
+    pokemon_list = crawling('a')
+    # print(pokemon_list,sep='\n\n')
+    e = time.time()
+    print(f'over all time {(e - s) * 1e3} ms')
     # write_to_csv('pokemon_2.csv', pokemon_list)
 
     # pokemon = each_pokemon("Bulbasaur"," ")
