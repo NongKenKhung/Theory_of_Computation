@@ -9,7 +9,7 @@
   <p>
     <strong>Type:</strong>
     {% for type in pokemon.Type %}
-    <span class="type-badge {{ type.lower() }}">{{ type }}</span>
+    <span class="type-badge {{ type|lower }}">{{ type }}</span>
     {% endfor %}
   </p>
   <div class="stats">
@@ -36,7 +36,7 @@
       <strong>Type:</strong>
       <span class="type-container">
         {% for type in pokemon.Type %}
-        <span class="type-badge {{ type.lower() }}">{{ type }}</span>
+        <span class="type-badge {{ type|lower }}">{{ type }}</span>
         {% endfor %}
       </span>
     </p>
