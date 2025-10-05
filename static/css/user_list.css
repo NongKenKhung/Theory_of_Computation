@@ -107,3 +107,111 @@
   color: #fdb71d;
   margin: 0;
 }
+
+.project-info {
+  background: white;
+  padding: 25px;
+  border-radius: 12px;
+  margin-bottom: 25px;
+  text-align: center;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+  border: 1px solid #e1e8ed;
+}
+
+.project-info h2 {
+  color: #333;
+  margin-bottom: 20px;
+  font-size: 1.5rem;
+  font-weight: 600;
+}
+
+.project-links {
+  display: flex;
+  gap: 20px;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.btn-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 12px 24px;
+  text-decoration: none;
+  border-radius: 8px;
+  font-weight: 600;
+  font-size: 1rem;
+  transition: all 0.3s ease;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+}
+
+.btn-link.github {
+  background: #333;
+  color: white;
+}
+
+.btn-link.github:hover {
+  background: #24292e;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
+}
+
+.btn-link.youtube {
+  background: #ff0000;
+  color: white;
+}
+
+.btn-link.youtube:hover {
+  background: #cc0000;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(255, 0, 0, 0.3);
+}
+
+.btn-link .icon {
+  flex-shrink: 0;
+}
+
+@media (max-width: 600px) {
+  .project-links {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .btn-link {
+    width: 200px;
+    justify-content: center;
+  }
+
+  .back-button {
+    font-size: 1rem;
+    padding: 2px;
+    width: 50px;
+    height: 30px;
+    left: 0.3rem;
+    top: 0.3rem;
+  }
+  .user-list {
+    padding: 1rem;
+    margin: 0 0.5rem;
+  }
+
+  .user-item {
+    padding: 12px 15px;
+    align-items: flex-start;
+    gap: 8px;
+    font-size: 1.1rem;
+    margin: 0.8rem 0;
+  }
+
+  .name {
+    font-size: 1rem;
+    line-height: 1.4;
+  }
+
+  .student-id {
+    font-size: 0.9rem;
+    align-self: flex-end;
+    font-weight: 600;
+    padding: 0.2rem 0.6rem;
+  }
+}

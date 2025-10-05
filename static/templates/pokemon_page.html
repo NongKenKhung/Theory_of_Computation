@@ -9,13 +9,15 @@
       rel="stylesheet"
     />
     <link rel="stylesheet" href="../css/loading.css" />
-    <title>Pokedex</title>
-    <link rel="stylesheet" href="../css/list_crawl.css" />
+    <title>Pokédex</title>
+    <link rel="stylesheet" href="../css/pokemon_page.css" />
   </head>
   <body>
     <nav>
-      <a href="/" class="back-button">&lt; back</a>
-      <h1>Pokedex</h1>
+      <a href="../index.html" class="back-button">
+        <span class="back-text">&lt; back</span>
+      </a>
+      <h1>Pokédex</h1>
       <div class="center-container">
         <form action="/pokemon-list" method="get">
           <input
@@ -35,50 +37,6 @@
         <p>Loading Pokémon Result</p>
       </div>
     </div>
-    <script>
-      function openModal(id) {
-        const modal = document.getElementById(`modal-${id}`);
-        if (modal) {
-          modal.showModal();
-        }
-      }
-
-      function closeModal(id) {
-        const modal = document.getElementById(`modal-${id}`);
-        if (modal) {
-          modal.close();
-        }
-      }
-
-      async function crawl(query) {
-        const response = await fetch(
-          `/api/list-items${
-            query == null ? "" : "?query=" + encodeURIComponent(query)
-          }`
-        );
-        if (!response.ok) {
-          document.getElementById("pokemon-list").innerHTML =
-            "fail to crawl data. Reload to retry";
-        }
-
-        const contentType = response.headers.get("content-type");
-        if (!contentType || !contentType.includes("text/html")) {
-          throw new Error("Invalid response format (should be text/html)");
-        }
-
-        const data = await response.text();
-        const queryTag = document.getElementById("query");
-        queryTag.innerText =
-          query == null ? "Listing all Pokémon" : `result of ${query}`;
-        document.getElementById("pokemon-list").innerHTML = data;
-      }
-
-      window.onload = () => {
-        const params = new Proxy(new URLSearchParams(window.location.search), {
-          get: (searchParams, prop) => searchParams.get(prop),
-        });
-        crawl(params.query);
-      };
-    </script>
+    <script src="../js/pokemon_page.js"></script>
   </body>
 </html>

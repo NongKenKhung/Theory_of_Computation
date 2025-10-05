@@ -1,4 +1,4 @@
-from fastapi import FastAPI, APIRouter, Query, Request
+from fastapi import FastAPI, APIRouter, Query, Request, HTTPException
 from fastapi.staticfiles import StaticFiles
 from fastapi.responses import StreamingResponse,RedirectResponse, JSONResponse, HTMLResponse, Response
 from fastapi.templating import Jinja2Templates
@@ -25,8 +25,10 @@ async def get_pokemon(query: str = Query(None)):
             media_type="text/csv",
             headers={"Content-Disposition": "attachment; filename=pokemon.csv"}
         )
+    except ValueError as e:
+        raise HTTPException(status_code=400, detail=f'{e}')
     except Exception as e:
-        return RedirectResponse(url="/", status_code=302)
+        raise HTTPException(status_code=500, detail=f'Internal server error')
 
 @api_router.get("/list-items", response_class=HTMLResponse)
 async def read_item(request: Request, query: str = Query(None)):
@@ -38,8 +40,15 @@ async def read_item(request: Request, query: str = Query(None)):
         return templates.TemplateResponse(
             "pokemon_list.html", {"request": request, "data": pokemon_list, "query_text": query}
         )
+    except ValueError as e:
+        raise HTTPException(status_code=400, detail=f'{e}')
     except Exception as e:
-        return Response(status_code=500)
+        print(e)
+        raise HTTPException(status_code=500, detail=f'Internal server error')
+
+@app.get("/loading-pokemon", response_class=HTMLResponse)
+async def load_pokemon(request: Request, query: str = Query(None)):
+    return templates.TemplateResponse('loading_pokemon.html', {"request":request, "query":query})
 
 @app.get("/pokemon-list", response_class=HTMLResponse)
 async def pokemon_list(request: Request, query: str = Query(None)):
