@@ -69,8 +69,7 @@ def crawling(query: str = None):
                             pokemon_list.append(data)
                     except Exception as e:
                         print(f'Error {e}')
-
-            return pokemon_list
+            return sorted(pokemon_list, key=lambda x: int(x['Number']))
     else:
         return []
 
