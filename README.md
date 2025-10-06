@@ -1,6 +1,8 @@
 # Theory of Computation - Pokemon Web Crawler
 
 A FastAPI web application that crawls Pokemon data from [PokemonDB](https://pokemondb.net/pokedex/) and provides CSV download functionality.
+
+> **⚠️ Note:** The downloaded CSV data may contain inaccuracies or formatting issues due to special characters (such as é, ♂, ♀, apostrophes, and other unicode characters) in Pokémon names and descriptions. Please verify the data if accuracy is critical for your use case.
   
 ## Prerequisites
 
@@ -54,6 +56,20 @@ source .venv/bin/activate  # Linux/Mac
 # Run the FastAPI development server
 fastapi dev main.py
 ```
+
+### 2. Start the Production Server
+
+```bash
+# Make sure virtual environment is activated
+source .venv/bin/activate  # Linux/Mac
+# or
+.venv\Scripts\activate     # Windows
+
+# Run the FastAPI production server
+uvicorn main:app --host 0.0.0.0 --port 8000
+```
+
+> **Note:** In production environments (e.g., Heroku), the port is typically provided via the `PORT` environment variable. The application will automatically use it.
 
 
 ## License
