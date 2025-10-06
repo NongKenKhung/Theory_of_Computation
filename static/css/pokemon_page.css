@@ -234,6 +234,11 @@ h2 {
   text-align: center;
   color: #5e727d;
   font-size: 36px;
+}
+
+.description-modal {
+  font-size: 28px;
+  text-align: center;
   border-bottom: 2px solid #ffe562;
   padding-bottom: 10px;
 }
