@@ -6,6 +6,7 @@
 >
   <img src="{{ pokemon.image }}" alt="{{ pokemon.name }}" />
   <h2>#{{ pokemon.Number }} {{ pokemon.Name }}</h2>
+  <p>{{ pokemon.Description }}</p>
   <p>
     <strong>Type:</strong>
     {% for type in pokemon.Type %}
@@ -27,7 +28,7 @@
   </button>
   <img src="{{ pokemon.image }}" alt="{{ pokemon.name }}" class="modal-image" />
   <h2>#{{ pokemon.Number }} {{ pokemon.Name }}</h2>
-  <p>{{ pokemon.Description }}</p>
+  <p class="description-modal">{{ pokemon.Description }}</p>
   <div class="modal-info">
     <p><strong>Species:</strong> {{ pokemon.Species or 'N/A' }}</p>
     <p><strong>Height:</strong> {{ pokemon.Height or 'N/A' }}</p>
