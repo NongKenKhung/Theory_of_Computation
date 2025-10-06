@@ -173,10 +173,10 @@ def call_detail_pokemon(name: str, description: str):
         }
 
 
-def extract_div_block(soruce: str, start_id: str):
+def extract_div_block(source: str, start_id: str):
     open_tag_pattern = re.compile(
         rf'<div[^>]*id="{re.escape(start_id)}"[^>]*>', re.IGNORECASE)
-    m = open_tag_pattern.search(soruce)
+    m = open_tag_pattern.search(source)
     if not m:
         return None
 
@@ -188,12 +188,12 @@ def extract_div_block(soruce: str, start_id: str):
     stack = Stack()
     stack.push('div')
 
-    for t in tag_pattern.finditer(soruce, pos):
+    for t in tag_pattern.finditer(source, pos):
         tag = t.group(0).lower()
         if tag.startswith('</'):
             stack.pop()
             if stack.is_empty():
-                return soruce[start_pos:t.end()]
+                return source[start_pos:t.end()]
         else:
             stack.push('div')
 
